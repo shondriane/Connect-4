@@ -1,6 +1,6 @@
 
 const wallet= document.querySelector('h3')
-
+const hitButton = document.querySelector ('#hit')
 
 //Player's current value of money
  let money = 100
@@ -28,18 +28,37 @@ let newDeck=[]
 //iteration to shuffle cards and push into a new Deck
 const shuffleCards = ()=>{
    cardDeck.forEach((cardDecks,index)=>{
-    let randomIndex=Math.floor(Math.random()*52)
-    index = randomIndex
-    let newCard;
-  newCard=cardDeck.splice(randomIndex,1,cardDecks)
-  newDeck.push(newCard)
-     })
-return newDeck
+        let randomIndex=Math.floor(Math.random()*52)
+        index = randomIndex
+        let newCard;
+        newCard=cardDeck.splice(randomIndex,1,cardDecks)
+        if(!newDeck.indexOf(newCard.id)!==-1){
+            newDeck.push(newCard)
+        }
+        else{
+            shuffleCards() //this is not working!!!
+        }
+    })
+    
 }   
-    shuffleCards() 
+shuffleCards()
+
+    console.log(newDeck)
      
+//player Hits event handler
 
-
+const hit =()=>{
+    
+hitButton.addEventListener('click',function (){
+    wallet.innerText = `Your current chip amount is: $${money-=15}`;
+   let card =newDeck[Math.floor(Math.random()*52)]
+   console.log(card)
+   let hand =[]
+   hand.push(card)
+   console.log(hand)
+})
+}
+hit()
 
 
 
