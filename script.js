@@ -9,21 +9,28 @@ console.log(wallet.innerText)
 
 //build standard deck of cards
 let suites = ['hearts', 'clubs', 'spades', 'diamonds']
-let cards =['ace', '1','2', '3','4','5','6','7','8','9']
+let cards =['ace', '1','2', '3','4','5','6','7','8','9','jack', 'queen','king']
 
 
-class Card{
-    constructor (suite,card){
-        this.suite=suite
-        this.card = card
-    }
+
+//iteration to get full deck 
+
+const fullDeck=() =>{
+    let cardDeck=[]
+    cards.forEach((card)=>{
+        suites.forEach((suite)=>{
+           cardDeck.push(card+ ' '+ suite)
+          
+        })
+        return cardDeck;
+    })
 }
 
-//iteration
+//shuffle cards
+let randomCard =()=>{
+  
+}
+console.log(randomCard)
 
-suites.forEach((element)=>{
-    cards.forEach((elements)=>{
-        console.log(element)
-    })
-})
+
 
