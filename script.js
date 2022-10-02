@@ -3,6 +3,7 @@ const betButton = document.querySelector('#bet')
 const hitButton = document.querySelector('#hit')
 const doubleButton = document.querySelector('#double')
 const stayButton = document.querySelector('#stay')
+const splitButton = document.querySelector('#split')
 const playerCards = document.querySelectorAll('li')
 const player = document.getElementById('player')
 const dealer = document.getElementById('dealer')
@@ -70,7 +71,7 @@ const shuffleCards = () => {
     if (!newDeck.includes(newCard.id) !== -1) {
       newDeck.push(newCard)
     } else {
-      shuffleCards() //this is not working!!!
+      shuffleCards() 
     }
   })
 }
@@ -91,6 +92,7 @@ bet()
 
 const hit = () => {
   hitButton.addEventListener('click', function () {
+    splitButton.style.display='unset'
     betButton.style.display = 'none' 
     // let card = newDeck[Math.floor(Math.random() * 52)]
     let card = ['jack clubs']
@@ -101,6 +103,7 @@ const hit = () => {
     }
     doubleButton.style.display = 'unset'
     stayButton.style.display = 'unset'
+    
   })
 }
 hit()
@@ -118,9 +121,26 @@ doubleButton.addEventListener('click', function () {
   }
   doubleButton.style.display='none'
   stayButton.style.display='none'
+  
 })
 }
 doubleDown()
+
+//player splits
+const splitCards =() =>{
+  splitButton.addEventListener('click', function () {
+    splitButton.style.display='none'
+    let card = newDeck[Math.floor(Math.random() * 52)]
+    console.log(card)
+    hand.push(card)
+    console.log(hand)
+    if (card.includes('jack clubs')){
+      player.innerText= `You have: ${playerValue+=10}`
+    }
+
+  },)
+  }
+  splitCards()
 
 //player stay
 const stay =() =>{

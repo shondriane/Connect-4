@@ -2,7 +2,7 @@ body{
     margin:0
 }
 
-button#double,button#stay{
+button#double,button#stay,button#split{
     display:none;
 }
 
