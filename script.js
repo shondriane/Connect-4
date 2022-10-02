@@ -125,9 +125,7 @@ doubleDown()
 //player stay
 const stay =() =>{
   stayButton.addEventListener('click', function () {
-    if (card.includes('jack clubs')){
-      player.innerText= `You have: ${playerValue+=10}`
-    }
+ 
     hitButton.style.display = 'none'
     doubleButton.style.display='none'
 console.log(hand)
