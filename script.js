@@ -3,7 +3,9 @@ const betButton = document.querySelector('#bet')
 const hitButton = document.querySelector('#hit')
 const doubleButton = document.querySelector('#double')
 const stayButton = document.querySelector('#stay')
-let click = 0
+const playerCards = document.getElementById('dealerCards')
+
+
 
 //stayButton.display='content'
 
@@ -31,6 +33,7 @@ let cards = [
 ]
 let cardDeck = []
 let newDeck = []
+let hand=[]
 
 //iteration to get full deck
 
@@ -76,16 +79,39 @@ bet()
 const hit = () => {
   hitButton.addEventListener('click', function () {
     betButton.style.display = 'none'
-    ++click
+ 
     //   doubleButton.display='block'
-    console.log(click)
+   
     let card = newDeck[Math.floor(Math.random() * 52)]
     console.log(card)
-    let hand = []
     hand.push(card)
-    console.log(hand)
     doubleButton.style.display = 'unset'
     stayButton.style.display = 'unset'
   })
 }
 hit()
+
+//player double down
+const doubleDown =() =>{
+doubleButton.addEventListener('click', function () {
+  hitButton.style.display = 'none'
+  let card = newDeck[Math.floor(Math.random() * 52)]
+  console.log(card)
+  hand.push(card)
+  console.log(hand)
+  doubleButton.style.display='none'
+  stayButton.style.display='none'
+})
+}
+doubleDown()
+
+//player stay
+const stay =() =>{
+  stayButton.addEventListener('click', function () {
+    hitButton.style.display = 'none'
+    doubleButton.style.display='none'
+console.log(hand)
+    
+  })
+  }
+  stay()
