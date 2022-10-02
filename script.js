@@ -1,6 +1,9 @@
 
 const wallet= document.querySelector('h3')
+const betButton = document.querySelector ('#bet')
 const hitButton = document.querySelector ('#hit')
+const doubleButton = document.querySelector ('#bet')
+const stayButton = document.querySelector ('#bet')
 
 //Player's current value of money
  let money = 100
@@ -44,13 +47,23 @@ const shuffleCards = ()=>{
 shuffleCards()
 
     console.log(newDeck)
+
+    //player place bet
+
+    const bet =()=>{
+    
+        betButton.addEventListener('click',function (){
+            wallet.innerText = `Your current chip amount is: $${money-=15}`;
+        })
+        }
+        bet()
      
 //player Hits event handler
 
 const hit =()=>{
     
 hitButton.addEventListener('click',function (){
-    wallet.innerText = `Your current chip amount is: $${money-=15}`;
+  betButton.style.display = 'none'
    let card =newDeck[Math.floor(Math.random()*52)]
    console.log(card)
    let hand =[]
