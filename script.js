@@ -3,9 +3,11 @@ const betButton = document.querySelector('#bet')
 const hitButton = document.querySelector('#hit')
 const doubleButton = document.querySelector('#double')
 const stayButton = document.querySelector('#stay')
-const playerCards = document.getElementById('dealerCards')
+const playerCards = document.querySelectorAll('li')
+const player = document.getElementById('player')
+const dealer = document.getElementById('dealer')
 
-
+console.log(playerCards)
 
 //stayButton.display='content'
 
@@ -31,9 +33,20 @@ let cards = [
   'queen',
   'king'
 ]
+
 let cardDeck = []
 let newDeck = []
 let hand=[]
+let dealerValue =0
+let playerValue =0
+//maybe put in an object instead so you can do sum of values for all  face cards.
+let ten = ['10','jack clubs', 'jack hearts', 'jack diamonds', 'jack spades','queen clubs', 'queen hearts', 'queen diamonds', 'queen spades','king clubs', 'king hearts', 'king diamonds', 'king spades']
+
+//player Hand Count
+player.innerText= `You have: ${playerValue}`
+
+//Dealer Hand Count
+dealer.innerText=`Dealer has: ${dealerValue}`
 
 //iteration to get full deck
 
@@ -54,7 +67,7 @@ const shuffleCards = () => {
     index = randomIndex
     let newCard
     newCard = cardDeck.splice(randomIndex, 1, cardDecks)
-    if (!newDeck.indexOf(newCard.id) !== -1) {
+    if (!newDeck.includes(newCard.id) !== -1) {
       newDeck.push(newCard)
     } else {
       shuffleCards() //this is not working!!!
@@ -78,13 +91,14 @@ bet()
 
 const hit = () => {
   hitButton.addEventListener('click', function () {
-    betButton.style.display = 'none'
- 
-    //   doubleButton.display='block'
-   
-    let card = newDeck[Math.floor(Math.random() * 52)]
+    betButton.style.display = 'none' 
+    // let card = newDeck[Math.floor(Math.random() * 52)]
+    let card = ['jack clubs']
     console.log(card)
     hand.push(card)
+    if (card.includes('jack clubs')){
+      player.innerText= `You have: ${playerValue+=10}`
+    }
     doubleButton.style.display = 'unset'
     stayButton.style.display = 'unset'
   })
@@ -99,6 +113,9 @@ doubleButton.addEventListener('click', function () {
   console.log(card)
   hand.push(card)
   console.log(hand)
+  if (card.includes('jack clubs')){
+    player.innerText= `You have: ${playerValue+=10}`
+  }
   doubleButton.style.display='none'
   stayButton.style.display='none'
 })
@@ -108,6 +125,9 @@ doubleDown()
 //player stay
 const stay =() =>{
   stayButton.addEventListener('click', function () {
+    if (card.includes('jack clubs')){
+      player.innerText= `You have: ${playerValue+=10}`
+    }
     hitButton.style.display = 'none'
     doubleButton.style.display='none'
 console.log(hand)

@@ -1,7 +1,12 @@
-li{
-    display: none;
+body{
+    margin:0
 }
 
 button#double,button#stay{
+    display:none;
+}
+
+
+li{
     display:none;
 }
