@@ -7,6 +7,7 @@ const splitButton = document.querySelector('#split')
 const playerCards = document.querySelectorAll('li')
 const player = document.getElementById('player')
 const dealer = document.getElementById('dealer')
+const gamble = document.getElementById('gamble')
 
 console.log(playerCards)
 
@@ -37,17 +38,26 @@ let cards = [
 
 let cardDeck = []
 let newDeck = []
-let hand=[]
-let dealerValue =0
-let playerValue =0
-//maybe put in an object instead so you can do sum of values for all  face cards.
-let ten = ['10','jack clubs', 'jack hearts', 'jack diamonds', 'jack spades','queen clubs', 'queen hearts', 'queen diamonds', 'queen spades','king clubs', 'king hearts', 'king diamonds', 'king spades']
+let hand = []
+let dealerValue = 0
+let playerValue = 0
+let betValue = 0
+let card
 
 //player Hand Count
-player.innerText= `You have: ${playerValue}`
+player.innerText = `You have: ${playerValue}`
 
 //Dealer Hand Count
-dealer.innerText=`Dealer has: ${dealerValue}`
+dealer.innerText = `Dealer has: ${dealerValue}`
+
+// determine winner for player
+
+// const playerWins =()=>{
+//   switch (playerValue){
+// case 21:
+//   player.innerText = `You win and add `
+//   }
+// }
 
 //iteration to get full deck
 
@@ -71,7 +81,7 @@ const shuffleCards = () => {
     if (!newDeck.includes(newCard.id) !== -1) {
       newDeck.push(newCard)
     } else {
-      shuffleCards() 
+      shuffleCards()
     }
   })
 }
@@ -79,77 +89,82 @@ shuffleCards()
 
 console.log(newDeck)
 
+//assign value
+const value = () => {}
+
 //player place bet
 
 const bet = () => {
   betButton.addEventListener('click', function () {
     wallet.innerText = `Your current chip amount is: $${(money -= 15)}`
+    gamble.innerText = `Your current bet is: $${(betValue += 15)}`
+    console.log(betValue)
   })
 }
 bet()
+
+//dealer hand
+// const dealer = () =>{
+//   newDeck.pop()
+//   dealer.innerText = `you have: ${playerValue}`
+// }
 
 //player Hits event handler
 
 const hit = () => {
   hitButton.addEventListener('click', function () {
-    splitButton.style.display='unset'
-    betButton.style.display = 'none' 
-    // let card = newDeck[Math.floor(Math.random() * 52)]
-    let card = ['jack clubs']
+    splitButton.style.display = 'unset'
+    betButton.style.display = 'none'
+    //gets card
+    card = newDeck.pop()
     console.log(card)
+    //shows hand
     hand.push(card)
-    if (card.includes('jack clubs')){
-      player.innerText= `You have: ${playerValue+=10}`
+    //gets value of card to display
+    cardString = card.toString()
+    let split = cardString.split(' ')
+    let cardValue = split[0]
+
+    if (cardValue === 'jack' || cardValue === 'king' || cardValue === 'queen') {
+      ;`${(playerValue += 10)}`
+    } else if (cardValue === 'ace') {
+      ;`${(playerValue += 11)}`
+    } else {
+      ;`${(playerValue += parseInt(cardValue))}`
     }
+    player.innerText = `you have: ${playerValue}`
+    //button shows up
     doubleButton.style.display = 'unset'
     stayButton.style.display = 'unset'
-    
   })
 }
 hit()
 
 //player double down
-const doubleDown =() =>{
-doubleButton.addEventListener('click', function () {
-  hitButton.style.display = 'none'
-  let card = newDeck[Math.floor(Math.random() * 52)]
-  console.log(card)
-  hand.push(card)
-  console.log(hand)
-  if (card.includes('jack clubs')){
-    player.innerText= `You have: ${playerValue+=10}`
-  }
-  doubleButton.style.display='none'
-  stayButton.style.display='none'
-  
-})
-}
-doubleDown()
-
-//player splits
-const splitCards =() =>{
-  splitButton.addEventListener('click', function () {
-    splitButton.style.display='none'
+const doubleDown = () => {
+  doubleButton.addEventListener('click', function () {
+    hitButton.style.display = 'none'
     let card = newDeck[Math.floor(Math.random() * 52)]
     console.log(card)
     hand.push(card)
     console.log(hand)
-    if (card.includes('jack clubs')){
-      player.innerText= `You have: ${playerValue+=10}`
+    if (card.includes('jack clubs')) {
+      player.innerText = `You have: ${(playerValue += 10)}`
     }
+    doubleButton.style.display = 'none'
+    stayButton.style.display = 'none'
+  })
+}
+doubleDown()
 
-  },)
-  }
-  splitCards()
+//player splits
 
 //player stay
-const stay =() =>{
+const stay = () => {
   stayButton.addEventListener('click', function () {
- 
     hitButton.style.display = 'none'
-    doubleButton.style.display='none'
-console.log(hand)
-    
+    doubleButton.style.display = 'none'
+    console.log(hand)
   })
-  }
-  stay()
+}
+stay()
