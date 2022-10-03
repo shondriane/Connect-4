@@ -43,17 +43,30 @@ let dealerValue = 0
 let playerValue = 0
 let betValue = 0
 let card
-hitClicked =0
+let hitClicked =0
+let dealerCard=0
 
-//player Hand Count
-player.innerText = `You have: ${playerValue}`
+// set time out to get new hand
+timeOut = ()=>{
+  setTimeout(newHand,1500)
+}
 
-//Dealer Hand Count
-dealer.innerText = `Dealer has: ${dealerValue}`
+newHand =()=>{
+  dealer.innerText = " "
+  player.innerText= " "
+  gamble.innerText = " "
+  playerValue =0
+  dealerValue=0
+  betValue =0
+  hitClicked=0
+  betButton.style.display= 'unset'
+  playButton.style.display= 'unset'
+  hitButton.style.display ='none'
+ 
+}
+
 
 // determine winner 
-
-
 const playerWins =()=>{
   
   if (dealerValue ===21 && playerValue===21){
@@ -65,18 +78,29 @@ const playerWins =()=>{
     player.innerText = 'Push'
   }
   else if (dealerValue >21 && playerValue <=21){
-    dealer.innerText = "Bust"
+    dealer.innerText = "Dealer Bust"
+    player.innerText=`You won: $${betValue*2}`
+    wallet.innerText = `Your current chip amount is: $${money+=(betValue*2)}`
     
+  }
+  else if (dealerValue ===21 && playerValue<21){
+    dealer.innerText = "Dealer won"
+    player.innerText = "You lost"
   }
   else if (playerValue>21){
     dealer.innerText = "Dealer Won"
-    player.innerText = "Bust"
+    player.innerText = "You Bust"
   }
-  else if (dealerValue<playerValue){
+  else if (dealerValue ===17 && playerValue <17){
+    dealer.innerText = "Dealer Won"
+    player.innerText = "You lost"
+  }
+  else{
     dealer.innerText = "Dealer Lost"
-    player.innerText = `You won: ${betValue*2}`
+    player.innerText =`You won: $${betValue*2}`
+    wallet.innerText = `Your current chip amount is: $${money+=(betValue*2)}`
   }
-  playButton.style.display ='unset'
+timeOut()
 }
 
 //iteration to get full deck
@@ -106,7 +130,6 @@ const shuffleCards = () => {
   })
 }
 shuffleCards()
-
 
 
 //assign value
@@ -142,6 +165,10 @@ playGame()
 
 //dealer hand
 const dealerHand = () =>{
+  ++dealerCard
+  if (newDeck.length===0){
+    shuffleCards()
+  }
   card = newDeck.pop()
   console.log (card)
  
@@ -158,8 +185,9 @@ const dealerHand = () =>{
      ;`${(dealerValue += parseInt(cardValue))}`
    }
    //display buttons
-   dealer.innerText = `Dealer has: ${dealerValue}`
-  hitButton.style.display ='unset'
+   hitButton.style.display ='unset'
+    dealer.innerText = `Dealer's card is: ${dealerValue}`
+ 
 }
 
 
@@ -168,6 +196,9 @@ const dealerHand = () =>{
 const hit = () => {
   hitButton.addEventListener('click', function () {
    ++hitClicked
+   if (newDeck.length===0){
+    shuffleCards()
+  }
     betButton.style.display = 'none'
     //gets card
     card = newDeck.pop()
@@ -193,7 +224,9 @@ const hit = () => {
     stayButton.style.display = 'unset'
    if (hitClicked >1){
     doubleButton.style.display='none'
+
    }
+   
   })
 }
 hit()
@@ -224,9 +257,9 @@ const doubleDown = () => {
     player.innerText = `you have: ${playerValue}`
     while (dealerValue <=17 && dealerValue<=21){
       dealerHand()
+      playerWins()
     } 
     hitButton.style.display ='none'
-  
   })
   
 }
@@ -243,8 +276,8 @@ const stay = () => {
     while (dealerValue <=17 && dealerValue<=21){
       dealerHand()
     } 
-  
-    
+    playerWins()
   })
+  
 }
 stay()
