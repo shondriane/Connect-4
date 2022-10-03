@@ -51,6 +51,17 @@ timeOut = ()=>{
   setTimeout(newHand,1500)
 }
 
+restartGame = ()=>{
+  if (money<=15){
+    setTimeout (function (){
+      location.reload();
+    },1400)
+    wallet.innerText ="You had to walk away, Game Over"
+  }
+  else timeOut()
+
+}
+
 newHand =()=>{
   dealer.innerText = " "
   player.innerText= " "
@@ -62,7 +73,6 @@ newHand =()=>{
   betButton.style.display= 'unset'
   playButton.style.display= 'unset'
   hitButton.style.display ='none'
- 
 }
 
 
@@ -100,7 +110,7 @@ const playerWins =()=>{
     player.innerText =`You won: $${betValue*2}`
     wallet.innerText = `Your current chip amount is: $${money+=(betValue*2)}`
   }
-timeOut()
+restartGame()
 }
 
 //iteration to get full deck
@@ -132,21 +142,31 @@ const shuffleCards = () => {
 shuffleCards()
 
 
-//assign value
-const value = () => {}
+switch(money){
+  case 15:
+    alert ('oh oh you\'re luck maybe running out')
+    break;
+    case 0:
+      alert('why didn\'t you catch the bus back home? Now you\'re stranded!')
+      break;
+}
 
 //player place bet
-
 const bet = () => {
+ 
   betButton.addEventListener('click', function () {
     wallet.innerText = `Your current chip amount is: $${(money -= 15)}`
-    gamble.innerText = `Your current bet is: $${(betValue += 15)}`
-    
-    
+    gamble.innerText = `Your current bet is: $${(betValue += 15)}`  
+    if (money<=15){
+      betButton.style.display='none'
+    }
   })
   
 }
 bet()
+
+//disable bet if money is less than 15
+
 
 //start game
 const playGame =()=>{
