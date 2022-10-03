@@ -3,7 +3,7 @@ const betButton = document.querySelector('#bet')
 const hitButton = document.querySelector('#hit')
 const doubleButton = document.querySelector('#double')
 const stayButton = document.querySelector('#stay')
-const splitButton = document.querySelector('#split')
+const playButton = document.querySelector('#play')
 const playerCards = document.querySelectorAll('li')
 const player = document.getElementById('player')
 const dealer = document.getElementById('dealer')
@@ -87,7 +87,7 @@ const shuffleCards = () => {
 }
 shuffleCards()
 
-console.log(newDeck)
+
 
 //assign value
 const value = () => {}
@@ -98,22 +98,56 @@ const bet = () => {
   betButton.addEventListener('click', function () {
     wallet.innerText = `Your current chip amount is: $${(money -= 15)}`
     gamble.innerText = `Your current bet is: $${(betValue += 15)}`
-    console.log(betValue)
+    
+    
   })
+  
 }
 bet()
 
+//start game
+const playGame =()=>{
+  
+  playButton.addEventListener('click',function (){
+    betButton.style.display='none'
+    
+    playButton.style.display='none'
+    dealerHand()
+    
+  })
+  
+}
+playGame()
+
+
 //dealer hand
-// const dealer = () =>{
-//   newDeck.pop()
-//   dealer.innerText = `you have: ${playerValue}`
-// }
+const dealerHand = () =>{
+  card = newDeck.pop()
+  console.log (card)
+ 
+   //gets value of card to display
+   cardString = card.toString()
+   let split = cardString.split(' ')
+   let cardValue = split[0]
+
+   if (cardValue === 'jack' || cardValue === 'king' || cardValue === 'queen') {
+     ;`${(dealerValue += 10)}`
+   } else if (cardValue === 'ace') {
+     ;`${(dealerValue += 11)}`
+   } else {
+     ;`${(dealerValue += parseInt(cardValue))}`
+   }
+   //display buttons
+   dealer.innerText = `Dealer has: ${dealerValue}`
+  hitButton.style.display ='unset'
+}
+
 
 //player Hits event handler
 
 const hit = () => {
   hitButton.addEventListener('click', function () {
-    splitButton.style.display = 'unset'
+   
     betButton.style.display = 'none'
     //gets card
     card = newDeck.pop()
@@ -133,37 +167,54 @@ const hit = () => {
       ;`${(playerValue += parseInt(cardValue))}`
     }
     player.innerText = `you have: ${playerValue}`
+
     //button shows up
     doubleButton.style.display = 'unset'
     stayButton.style.display = 'unset'
+
   })
 }
 hit()
+
 
 //player double down
 const doubleDown = () => {
   doubleButton.addEventListener('click', function () {
     hitButton.style.display = 'none'
-    let card = newDeck[Math.floor(Math.random() * 52)]
+    newDeck.pop()
     console.log(card)
     hand.push(card)
     console.log(hand)
-    if (card.includes('jack clubs')) {
-      player.innerText = `You have: ${(playerValue += 10)}`
+    //gets value of card to display
+    cardString = card.toString()
+    let split = cardString.split(' ')
+    let cardValue = split[0]
+
+    if (cardValue === 'jack' || cardValue === 'king' || cardValue === 'queen') {
+      ;`${(playerValue += 10)}`
+    } else if (cardValue === 'ace') {
+      ;`${(playerValue += 11)}`
+    } else {
+      ;`${(playerValue += parseInt(cardValue))}`
     }
+    player.innerText = `you have: ${playerValue}`
     doubleButton.style.display = 'none'
-    stayButton.style.display = 'none'
+   
   })
 }
 doubleDown()
 
-//player splits
+
 
 //player stay
 const stay = () => {
   stayButton.addEventListener('click', function () {
+    
     hitButton.style.display = 'none'
     doubleButton.style.display = 'none'
+    while (dealerValue<=17){
+      dealerHand()
+    } 
     console.log(hand)
   })
 }
