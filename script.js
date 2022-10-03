@@ -43,6 +43,7 @@ let dealerValue = 0
 let playerValue = 0
 let betValue = 0
 let card
+hitClicked =0
 
 //player Hand Count
 player.innerText = `You have: ${playerValue}`
@@ -50,14 +51,33 @@ player.innerText = `You have: ${playerValue}`
 //Dealer Hand Count
 dealer.innerText = `Dealer has: ${dealerValue}`
 
-// determine winner for player
+// determine winner 
 
-// const playerWins =()=>{
-//   switch (playerValue){
-// case 21:
-//   player.innerText = `You win and add `
-//   }
-// }
+
+const playerWins =()=>{
+  
+  if (dealerValue ===21 && playerValue===21){
+    dealer.innerText = "Push "
+    player.innerText = "Push"
+  }
+  else if (dealerValue === 17 && playerValue ===17){
+    dealer.innerText = "Push "
+    player.innerText = 'Push'
+  }
+  else if (dealerValue >21 && playerValue <=21){
+    dealer.innerText = "Bust"
+    
+  }
+  else if (playerValue>21){
+    dealer.innerText = "Dealer Won"
+    player.innerText = "Bust"
+  }
+  else if (dealerValue<playerValue){
+    dealer.innerText = "Dealer Lost"
+    player.innerText = `You won: ${betValue*2}`
+  }
+  playButton.style.display ='unset'
+}
 
 //iteration to get full deck
 
@@ -147,7 +167,7 @@ const dealerHand = () =>{
 
 const hit = () => {
   hitButton.addEventListener('click', function () {
-   
+   ++hitClicked
     betButton.style.display = 'none'
     //gets card
     card = newDeck.pop()
@@ -171,7 +191,9 @@ const hit = () => {
     //button shows up
     doubleButton.style.display = 'unset'
     stayButton.style.display = 'unset'
-
+   if (hitClicked >1){
+    doubleButton.style.display='none'
+   }
   })
 }
 hit()
@@ -180,7 +202,9 @@ hit()
 //player double down
 const doubleDown = () => {
   doubleButton.addEventListener('click', function () {
-    hitButton.style.display = 'none'
+    
+    stayButton.style.display ='none'
+    doubleButton.style.display='none'
     newDeck.pop()
     console.log(card)
     hand.push(card)
@@ -198,9 +222,13 @@ const doubleDown = () => {
       ;`${(playerValue += parseInt(cardValue))}`
     }
     player.innerText = `you have: ${playerValue}`
-    doubleButton.style.display = 'none'
-   
+    while (dealerValue <=17 && dealerValue<=21){
+      dealerHand()
+    } 
+    hitButton.style.display ='none'
+  
   })
+  
 }
 doubleDown()
 
@@ -209,13 +237,14 @@ doubleDown()
 //player stay
 const stay = () => {
   stayButton.addEventListener('click', function () {
-    
+    stayButton.style.display='none'
     hitButton.style.display = 'none'
     doubleButton.style.display = 'none'
-    while (dealerValue<=17){
+    while (dealerValue <=17 && dealerValue<=21){
       dealerHand()
     } 
-    console.log(hand)
+  
+    
   })
 }
 stay()
