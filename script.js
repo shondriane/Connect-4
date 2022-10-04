@@ -9,9 +9,7 @@ const player = document.getElementById('player')
 const dealer = document.getElementById('dealer')
 const gamble = document.getElementById('gamble')
 
-console.log(playerCards)
 
-//stayButton.display='content'
 
 //Player's current value of money
 let money = 100
@@ -154,7 +152,7 @@ switch(money){
 //player place bet
 const bet = () => {
  
-  betButton.addEventListener('click', function () {
+  betButton.addEventListener('click', ()=> {
     wallet.innerText = `Your current chip amount is: $${(money -= 15)}`
     gamble.innerText = `Your current bet is: $${(betValue += 15)}`  
     if (money<=15){
@@ -182,6 +180,9 @@ const playGame =()=>{
 }
 playGame()
 
+// const displayCard = (){
+
+// }
 
 //dealer hand
 const dealerHand = () =>{
@@ -214,7 +215,7 @@ const dealerHand = () =>{
 //player Hits event handler
 
 const hit = () => {
-  hitButton.addEventListener('click', function () {
+  hitButton.addEventListener('click', ()=> {
    ++hitClicked
    if (newDeck.length===0){
     shuffleCards()
@@ -254,7 +255,7 @@ hit()
 
 //player double down
 const doubleDown = () => {
-  doubleButton.addEventListener('click', function () {
+  doubleButton.addEventListener('click', ()=> {
     
     stayButton.style.display ='none'
     doubleButton.style.display='none'
@@ -289,7 +290,7 @@ doubleDown()
 
 //player stay
 const stay = () => {
-  stayButton.addEventListener('click', function () {
+  stayButton.addEventListener('click',() =>{
     stayButton.style.display='none'
     hitButton.style.display = 'none'
     doubleButton.style.display = 'none'
