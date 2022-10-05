@@ -4,12 +4,31 @@ const hitButton = document.querySelector('#hit')
 const doubleButton = document.querySelector('#double')
 const stayButton = document.querySelector('#stay')
 const playButton = document.querySelector('#play')
-const playerCards = document.querySelectorAll('li')
+const display = document.getElementById('dealerCards')
 const player = document.getElementById('player')
 const dealer = document.getElementById('dealer')
 const gamble = document.getElementById('gamble')
+const hidden = document.getElementsByClassName('hide')
+const playerCards = document.getElementById('playingCards')
 
 
+// Code below removes item from hidden list
+const removeClass = (card)=>{
+  cardString = `${card}`.toString()
+  let split = cardString.split(' ')
+  let cardValue = split[0]+split[1]
+  const removed = document.getElementById(`${cardValue}`)
+  removed.classList.remove('hide')
+}
+
+//code below adds classList back
+ const addClass = (card)=>{
+  cardString = `${card}`.toString()
+  let split = cardString.split(' ')
+  let cardValue = split[0]+split[1]
+  const addCard = document.getElementById(`${cardValue}`)
+  addCard.classList.add('hide')
+}
 
 //Player's current value of money
 let money = 100
@@ -60,6 +79,18 @@ restartGame = ()=>{
 
 }
 
+const dealerHandReset = ()=>{
+  while(display.firstChild){
+    display.removeChild(display.firstChild)
+  }  
+}
+
+const playerHandReset = ()=>{
+  while(playerCards.firstChild){
+    playerCards.removeChild(playerCards.firstChild)
+   }
+}
+
 newHand =()=>{
   dealer.innerText = " "
   player.innerText= " "
@@ -71,7 +102,26 @@ newHand =()=>{
   betButton.style.display= 'unset'
   playButton.style.display= 'unset'
   hitButton.style.display ='none'
+ playerHandReset()
+ dealerHandReset()
+
 }
+
+// show cards
+
+const showCardsDealer =(card)=>{
+const image = document.createElement('img')
+ image.setAttribute("src",`./cards/${card}.png`) 
+  display.appendChild(image)
+
+  }
+
+  const showCardsPlayer =(card)=>{
+    const imageNew = document.createElement('img')
+ imageNew.setAttribute("src",`./cards/${card}.png`) 
+  playerCards.appendChild(imageNew)
+  }
+ 
 
 
 // determine winner 
@@ -132,6 +182,7 @@ const shuffleCards = () => {
     newCard = cardDeck.splice(randomIndex, 1, cardDecks)
     if (!newDeck.includes(newCard.id) !== -1) {
       newDeck.push(newCard)
+      
     } else {
       shuffleCards()
     }
@@ -139,7 +190,8 @@ const shuffleCards = () => {
 }
 shuffleCards()
 
-
+//alert to remind player of the end goal
+const howmuch =()=>{
 switch(money){
   case 15:
     alert ('oh oh you\'re luck maybe running out')
@@ -147,42 +199,36 @@ switch(money){
     case 0:
       alert('why didn\'t you catch the bus back home? Now you\'re stranded!')
       break;
+      default:
 }
+}
+
 
 //player place bet
 const bet = () => {
- 
   betButton.addEventListener('click', ()=> {
     wallet.innerText = `Your current chip amount is: $${(money -= 15)}`
     gamble.innerText = `Your current bet is: $${(betValue += 15)}`  
+    //disable bet if money is less than 15
+    howmuch()
     if (money<=15){
       betButton.style.display='none'
     }
   })
-  
 }
 bet()
-
-//disable bet if money is less than 15
 
 
 //start game
 const playGame =()=>{
-  
   playButton.addEventListener('click',function (){
     betButton.style.display='none'
-    
     playButton.style.display='none'
-    dealerHand()
-    
+    dealerHand() 
   })
-  
 }
 playGame()
 
-// const displayCard = (){
-
-// }
 
 //dealer hand
 const dealerHand = () =>{
@@ -191,11 +237,14 @@ const dealerHand = () =>{
     shuffleCards()
   }
   card = newDeck.pop()
-  console.log (card)
+  
+showCardsDealer(card)
  
    //gets value of card to display
    cardString = card.toString()
+   console.log(cardString)
    let split = cardString.split(' ')
+   console.log(split)
    let cardValue = split[0]
 
    if (cardValue === 'jack' || cardValue === 'king' || cardValue === 'queen') {
@@ -205,6 +254,7 @@ const dealerHand = () =>{
    } else {
      ;`${(dealerValue += parseInt(cardValue))}`
    }
+
    //display buttons
    hitButton.style.display ='unset'
     dealer.innerText = `Dealer's card is: ${dealerValue}`
@@ -223,9 +273,14 @@ const hit = () => {
     betButton.style.display = 'none'
     //gets card
     card = newDeck.pop()
-    console.log(card)
+
+
     //shows hand
+// removeClass(card)
+showCardsPlayer(card)
+
     hand.push(card)
+   
     //gets value of card to display
     cardString = card.toString()
     let split = cardString.split(' ')
@@ -285,7 +340,6 @@ const doubleDown = () => {
   
 }
 doubleDown()
-
 
 
 //player stay
