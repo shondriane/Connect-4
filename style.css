@@ -1,6 +1,9 @@
 body{
-    margin:0
+    margin:0;
+    background-color: green;
 }
+
+
 
 button#double,button#stay,button#split, button#hit{
     display:none;

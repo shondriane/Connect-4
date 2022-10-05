@@ -8,32 +8,30 @@ const display = document.getElementById('dealerCards')
 const player = document.getElementById('player')
 const dealer = document.getElementById('dealer')
 const gamble = document.getElementById('gamble')
-const hidden = document.getElementsByClassName('hide')
 const playerCards = document.getElementById('playingCards')
 
 
-// Code below removes item from hidden list
-const removeClass = (card)=>{
-  cardString = `${card}`.toString()
-  let split = cardString.split(' ')
-  let cardValue = split[0]+split[1]
-  const removed = document.getElementById(`${cardValue}`)
-  removed.classList.remove('hide')
-}
-
-//code below adds classList back
- const addClass = (card)=>{
-  cardString = `${card}`.toString()
-  let split = cardString.split(' ')
-  let cardValue = split[0]+split[1]
-  const addCard = document.getElementById(`${cardValue}`)
-  addCard.classList.add('hide')
-}
 
 //Player's current value of money
 let money = 100
 wallet.innerText = `Your current chip amount is: $${money}`
 console.log(wallet.innerText)
+
+//alert to remind player of the initial goal to buy plane tickets
+const howmuch =()=>{
+  switch(money){
+    case 30:
+      alert ('you have just enough to take bus back home, reconsider catching a flight')
+      break;
+    case 15:
+      alert ('oh oh you\'re luck maybe running out')
+      break;
+      case 0:
+        alert('why didn\'t you catch the bus back home? Now you\'re stranded!')
+        break;
+        default:
+  }
+  }
 
 //build standard deck of cards
 let suites = ['hearts', 'clubs', 'spades', 'diamonds']
@@ -55,7 +53,8 @@ let cards = [
 
 let cardDeck = []
 let newDeck = []
-let hand = []
+let playerAce =0
+let dealerAce=0
 let dealerValue = 0
 let playerValue = 0
 let betValue = 0
@@ -65,48 +64,85 @@ let dealerCard=0
 
 // set time out to get new hand
 timeOut = ()=>{
-  setTimeout(newHand,1500)
+  setTimeout(newHand,2000)
 }
 
 restartGame = ()=>{
   if (money<=15){
     setTimeout (function (){
       location.reload();
-    },1400)
+    },2000)
     wallet.innerText ="You had to walk away, Game Over"
   }
   else timeOut()
 
 }
 
-const dealerHandReset = ()=>{
-  while(display.firstChild){
-    display.removeChild(display.firstChild)
+const handReset = (elem)=>{
+  while(elem.firstChild){
+    elem.removeChild(elem.firstChild)
   }  
 }
 
-const playerHandReset = ()=>{
-  while(playerCards.firstChild){
-    playerCards.removeChild(playerCards.firstChild)
-   }
-}
 
 newHand =()=>{
   dealer.innerText = " "
   player.innerText= " "
   gamble.innerText = " "
-  playerValue =0
+  playerValue =19
   dealerValue=0
   betValue =0
   hitClicked=0
   betButton.style.display= 'unset'
   playButton.style.display= 'unset'
   hitButton.style.display ='none'
- playerHandReset()
- dealerHandReset()
+ handReset(display)
+ handReset(playerCards)
+ 
 
 }
 
+   //gets value of card to display for Dealer
+   const value = (card)=>{
+    cardString = card.toString()
+    let split = cardString.split(' ')
+    let cardValue = split[0]
+  
+
+    if (cardValue === 'jack' || cardValue === 'king' || cardValue === 'queen') {
+    
+      ;`${(dealerValue += 10)}`
+    } else if (cardValue === 'ace') {
+     dealerAce++
+    
+    `${(dealerValue+=11)}` 
+    
+    }
+     else {
+       
+      ;`${(dealerValue +=parseInt(cardValue))}`
+    }
+    
+   }
+  
+//gets value of card to display for Player
+const valueP =(card)=>{
+cardString = card.toString()
+let split = cardString.split(' ')
+let cardValue = split[0]
+
+if (cardValue === 'jack' || cardValue === 'king' || cardValue === 'queen') {
+  ;`${(playerValue +=10)}`
+} else if (cardValue === 'ace') {
+  playerAce++
+  `${(playerValue+=11)}`
+ 
+}
+else {
+  
+  ;`${(playerValue +=parseInt(cardValue))}`
+}
+}
 // show cards
 
 const showCardsDealer =(card)=>{
@@ -127,35 +163,42 @@ const image = document.createElement('img')
 // determine winner 
 const playerWins =()=>{
   
-  if (dealerValue ===21 && playerValue===21){
+  if (dealerValue ===playerValue){
     dealer.innerText = "Push "
     player.innerText = "Push"
   }
-  else if (dealerValue === 17 && playerValue ===17){
-    dealer.innerText = "Push "
-    player.innerText = 'Push'
-  }
-  else if (dealerValue >21 && playerValue <=21){
+  
+  else if (dealerValue >21){
     dealer.innerText = "Dealer Bust"
-    player.innerText=`You won: $${betValue*2}`
+    player.innerText=`You Won: $${betValue*2}`
     wallet.innerText = `Your current chip amount is: $${money+=(betValue*2)}`
     
-  }
-  else if (dealerValue ===21 && playerValue<21){
-    dealer.innerText = "Dealer won"
-    player.innerText = "You lost"
   }
   else if (playerValue>21){
     dealer.innerText = "Dealer Won"
     player.innerText = "You Bust"
   }
+  else if (dealerValue ===21 && playerValue<21){
+    dealer.innerText = "Dealer Won"
+    player.innerText = "You Lost"
+  }
+  else if (playerValue ===21 && dealerValue<21){
+    dealer.innerText = "Dealer Lost"
+    player.innerText =`You Won: $${betValue*3}`
+    wallet.innerText = `Your current chip amount is: $${money+=(betValue*3)}`
+  }
+
   else if (dealerValue ===17 && playerValue <17){
     dealer.innerText = "Dealer Won"
-    player.innerText = "You lost"
+    player.innerText = "You Lost"
   }
-  else{
+  else if (dealerValue > playerValue){
+    dealer.innerText = "Dealer Won"
+    player.innerText = "You Lost"
+  }
+  else {
     dealer.innerText = "Dealer Lost"
-    player.innerText =`You won: $${betValue*2}`
+    player.innerText =`You Won: $${betValue*2}`
     wallet.innerText = `Your current chip amount is: $${money+=(betValue*2)}`
   }
 restartGame()
@@ -174,35 +217,23 @@ const fullDeck = () => {
 fullDeck()
 
 //iteration to shuffle cards and push into a new Deck
-const shuffleCards = () => {
-  cardDeck.forEach((cardDecks, index) => {
-    let randomIndex = Math.floor(Math.random() * 52)
-    index = randomIndex
-    let newCard
-    newCard = cardDeck.splice(randomIndex, 1, cardDecks)
-    if (!newDeck.includes(newCard.id) !== -1) {
-      newDeck.push(newCard)
-      
-    } else {
-      shuffleCards()
-    }
-  })
+const shuffleCards = (cardDeck) => {
+  let count =52
+  while(count){
+    newDeck.push(cardDeck.splice(Math.floor(Math.random()*count),1)[0])
+    count-=1
+  }
 }
-shuffleCards()
+shuffleCards(cardDeck)
 
-//alert to remind player of the end goal
-const howmuch =()=>{
-switch(money){
-  case 15:
-    alert ('oh oh you\'re luck maybe running out')
-    break;
-    case 0:
-      alert('why didn\'t you catch the bus back home? Now you\'re stranded!')
-      break;
-      default:
-}
-}
+// see if hand has an ace and change card value (not working!!)
+ const aceExist=(item,num)=>{
 
+  if(`${num>21}` && `${item>0}`){
+    `${num-=10}`
+  }
+ }
+ 
 
 //player place bet
 const bet = () => {
@@ -213,6 +244,7 @@ const bet = () => {
     howmuch()
     if (money<=15){
       betButton.style.display='none'
+      doubleButton.style.display='none'
     }
   })
 }
@@ -229,41 +261,27 @@ const playGame =()=>{
 }
 playGame()
 
-
-//dealer hand
+//dealer event handler
+//get dealer card, value,image and check for aces
 const dealerHand = () =>{
   ++dealerCard
   if (newDeck.length===0){
     shuffleCards()
   }
   card = newDeck.pop()
-  
 showCardsDealer(card)
- 
-   //gets value of card to display
-   cardString = card.toString()
-   console.log(cardString)
-   let split = cardString.split(' ')
-   console.log(split)
-   let cardValue = split[0]
-
-   if (cardValue === 'jack' || cardValue === 'king' || cardValue === 'queen') {
-     ;`${(dealerValue += 10)}`
-   } else if (cardValue === 'ace') {
-     ;`${(dealerValue += 11)}`
-   } else {
-     ;`${(dealerValue += parseInt(cardValue))}`
-   }
-
+ value(card)
+//  aceExist(dealerAce,dealerValue)
    //display buttons
    hitButton.style.display ='unset'
+   //reset dealer text
     dealer.innerText = `Dealer's card is: ${dealerValue}`
  
 }
 
 
 //player Hits event handler
-
+//get player card, value, image and check for aces
 const hit = () => {
   hitButton.addEventListener('click', ()=> {
    ++hitClicked
@@ -271,70 +289,43 @@ const hit = () => {
     shuffleCards()
   }
     betButton.style.display = 'none'
-    //gets card
-    card = newDeck.pop()
-
-
-    //shows hand
-// removeClass(card)
+    card = "ace hearts"
 showCardsPlayer(card)
+valueP(card)
+aceExist(playerAce,playerValue)
 
-    hand.push(card)
-   
-    //gets value of card to display
-    cardString = card.toString()
-    let split = cardString.split(' ')
-    let cardValue = split[0]
-
-    if (cardValue === 'jack' || cardValue === 'king' || cardValue === 'queen') {
-      ;`${(playerValue += 10)}`
-    } else if (cardValue === 'ace') {
-      ;`${(playerValue += 11)}`
-    } else {
-      ;`${(playerValue += parseInt(cardValue))}`
-    }
-    player.innerText = `you have: ${playerValue}`
-
+//reset button
+player.innerText = `you have: ${playerValue}`
     //button shows up
     doubleButton.style.display = 'unset'
     stayButton.style.display = 'unset'
    if (hitClicked >1){
     doubleButton.style.display='none'
-
-   }
-   
+   }  
   })
 }
 hit()
 
 
-//player double down
+//player double down event handler
+// double value of bet, gets one card and set dealer hand
 const doubleDown = () => {
   doubleButton.addEventListener('click', ()=> {
-    
+    gamble.innerText = `Your current bet is: $${(betValue+= 15)}`
+    player.innerText = `you have: ${playerValue-=15}`
+    console.log(playerValue)
+    console.log(betValue)
     stayButton.style.display ='none'
     doubleButton.style.display='none'
-    newDeck.pop()
-    console.log(card)
-    hand.push(card)
-    console.log(hand)
-    //gets value of card to display
-    cardString = card.toString()
-    let split = cardString.split(' ')
-    let cardValue = split[0]
-
-    if (cardValue === 'jack' || cardValue === 'king' || cardValue === 'queen') {
-      ;`${(playerValue += 10)}`
-    } else if (cardValue === 'ace') {
-      ;`${(playerValue += 11)}`
-    } else {
-      ;`${(playerValue += parseInt(cardValue))}`
-    }
-    player.innerText = `you have: ${playerValue}`
+    card =newDeck.pop()
+    showCardsPlayer(card)
+    aceExist(playerAce,playerValue)
+   
+    //while loop for dealer hand
     while (dealerValue <=17 && dealerValue<=21){
       dealerHand()
-      playerWins()
     } 
+    playerWins()
     hitButton.style.display ='none'
   })
   
@@ -342,7 +333,8 @@ const doubleDown = () => {
 doubleDown()
 
 
-//player stay
+//player stay event listener
+//all display buttons disappear, get dealer hand and determine winner
 const stay = () => {
   stayButton.addEventListener('click',() =>{
     stayButton.style.display='none'
@@ -350,6 +342,7 @@ const stay = () => {
     doubleButton.style.display = 'none'
     while (dealerValue <=17 && dealerValue<=21){
       dealerHand()
+      console.log(card)
     } 
     playerWins()
   })

@@ -33,4 +33,5 @@ The project itself was deployed and can be viewed here.
 
 
 Markdown Guide: ia.net
-
+Shuffle Cards: [https://medium.com/swlh/the-javascript-shuffle-62660df19a5d]
+Card Pictures: [https://stock.adobe.com/search?k=full+deck+of+cards&asset]
