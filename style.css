@@ -1,12 +1,21 @@
 body{
-    margin:0;
+    
     background-color: darkred;
+   margin:5px;
+   
 }
 
-
+section{
+   display: grid;
+   grid-template-columns: 1fr 2fr;
+   padding: 50px;
+   text-align: center;
+ 
+}
 
 button#double,button#stay,button#split, button#hit{
     display:none;
+    margin: 10px;
 }
 
 div#playingCards{

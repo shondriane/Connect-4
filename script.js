@@ -14,7 +14,7 @@ const playerCards = document.getElementById('playingCards')
 
 //Player's current value of money
 let money = 100
-wallet.innerText = `Your current chip amount is: $${money}`
+wallet.innerText = `Current chip amount is: $${money}`
 console.log(wallet.innerText)
 
 //alert to remind player of the initial goal to buy plane tickets
@@ -90,9 +90,11 @@ newHand =()=>{
   player.innerText= " "
   gamble.innerText = " "
   playerValue =0
-  dealerValue=19
+  dealerValue=0
   betValue =0
   hitClicked=0
+  playerAce=0
+  dealerAce=0
   betButton.style.display= 'unset'
   playButton.style.display= 'unset'
   hitButton.style.display ='none'
@@ -111,7 +113,7 @@ newHand =()=>{
 
     if (cardValue === 'jack' || cardValue === 'king' || cardValue === 'queen') {
     
-      ;`${(dealerValue += 10)}`
+      `${(dealerValue += 10)}`
     } else if (cardValue === 'ace') {
      dealerAce++
     
@@ -173,7 +175,7 @@ const playerWins =()=>{
   else if (dealerValue >21){
     dealer.innerText = "Dealer Bust"
     player.innerText=`You Won: $${betValue*2}`
-    wallet.innerText = `Your current chip amount is: $${money+=(betValue*2)}`
+    wallet.innerText = `Current chip amount is: $${money+=(betValue*2)}`
     
   }
   else if (playerValue>21){
@@ -187,7 +189,7 @@ const playerWins =()=>{
   else if (playerValue ===21 && dealerValue<21){
     dealer.innerText = "Dealer Lost"
     player.innerText =`You Won: $${betValue*3}`
-    wallet.innerText = `Your current chip amount is: $${money+=(betValue*3)}`
+    wallet.innerText = `Current chip amount is: $${money+=(betValue*3)}`
   }
 
   else if (dealerValue ===17 && playerValue <17){
@@ -201,7 +203,7 @@ const playerWins =()=>{
   else {
     dealer.innerText = "Dealer Lost"
     player.innerText =`You Won: $${betValue*2}`
-    wallet.innerText = `Your current chip amount is: $${money+=(betValue*2)}`
+    wallet.innerText = `Current chip amount is: $${money+=(betValue*2)}`
   }
 restartGame()
 }
@@ -232,8 +234,8 @@ shuffleCards(cardDeck)
 //player place bet
 const bet = () => {
   betButton.addEventListener('click', ()=> {
-    wallet.innerText = `Your current chip amount is: $${(money -= 15)}`
-    gamble.innerText = `Your current bet is: $${(betValue += 15)}`  
+    wallet.innerText = `Current chip amount is: $${(money -= 15)}`
+    gamble.innerText = `Current bet amount is: $${(betValue += 15)}`  
     //disable bet if money is less than 15
     howmuch()
     if (money<15){
@@ -262,7 +264,7 @@ const dealerHand = () =>{
   if (newDeck.length===0){
     shuffleCards()
   }
-  card = "ace spades"
+  card = newDeck.pop()
 showCardsDealer(card)
  value(card)
 
@@ -304,7 +306,7 @@ hit()
 // double value of bet, gets one card and sets dealer hand
 const doubleDown = () => {
   doubleButton.addEventListener('click', ()=> {
-    gamble.innerText = `Your current bet is: $${(betValue+= 15)}`
+    gamble.innerText = `Current bet amount is: $${(betValue+= 15)}`
     player.innerText = `you have: ${playerValue-=15}`
     console.log(playerValue)
     console.log(betValue)
@@ -312,7 +314,7 @@ const doubleDown = () => {
     doubleButton.style.display='none'
     card =newDeck.pop()
     showCardsPlayer(card)
-    aceExist(playerAce,playerValue)
+  
    
     //while loop for dealer hand
     while (dealerValue <=17 && dealerValue<=21){
