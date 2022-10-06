@@ -30,8 +30,8 @@ const howmuch =()=>{
     case 15:
       alert ('oh oh you\'re luck maybe running out')
       break;
-      case 0:
-        alert('why didn\'t you catch the bus back home? Now you\'re stranded!')
+      case 10:
+        alert('why didn\'t you catch the bus back home? Now you may get stranded!')
         break;
         default:
   }
@@ -239,11 +239,13 @@ shuffleCards(cardDeck)
 //player place bet
 const bet = () => {
   betButton.addEventListener('click', ()=> {
+    
     wallet.innerText = `Current chip amount is: $${(money -= 15)}`
     gamble.innerText = `Current bet amount is: $${(betValue += 15)}`  
-    //disable bet if money is less than 15
+    
     howmuch()
-    if (money<15){
+    //disable bet if money is less than 15
+    if (money<=15){
       betButton.style.display='none'
       doubleButton.style.display='none'
     }

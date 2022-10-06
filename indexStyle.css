@@ -1,0 +1,17 @@
+ 
+ body{
+    background-image: url('https://www.sycuan.com/wp-content/uploads/2021/05/tg-traditional-blackjack.jpg');
+   background-size: cover;
+   background-attachment:fixed;
+ }
+
+p{
+    text-align: center;
+    background-color: antiquewhite;
+    margin: 180px;
+    padding: 30px;
+    width:50%
+ }
+  button{
+    color: green;
+  }

@@ -3,30 +3,49 @@ body{
     background-color: darkred;
    margin:5px;
    align-items: center;
-  
+   background-image: url('https://drive.google.com/uc?id=1x6s1KtJH5EZNTyLdBxlqp3PhPhDWoJ61');
+   background-size: cover;
+   background-attachment:fixed;
+   color: white;
    
+  
+
 }
 
-body.light,button{
+/* body.light,button{
     background-color:antiquewhite;
-    color: rgb(171, 115, 41)
+    color:white
     
-}
-img#picture{
-    display:flex;
-}
+} */
+/*img#picture{
+    width:100%;
+    position: absolute;
+    top:0;
+    left:0;
+}*/
 section{
    display: grid;
    grid-template-columns: 1fr 2fr;
-   padding: 50px;
+   padding: 30px;
    text-align: center;
- 
+}
+h3 {
+    background-color: black;
+    display:inline;
+}
+div{
+    margin-top: 75px;
+
+}
+section#money{
+    padding: 0;
+    margin:0;
 }
 
 
 button#double,button#stay,button#split, button#hit{
     display:none;
-    margin: 10px;
+    margin: 9px;
 }
 
 div#playingCards,div#dealerCards{
@@ -36,15 +55,18 @@ div#playingCards,div#dealerCards{
 }
 
 
-li.hide{
+img#hide{
    
    display:none;
 } 
 li{
     list-style: none;
 }
-
-.dealerCards{
+img{
+    width: 15%
+}
+/*.dealerCards{
     display:grid;
     grid-template-columns:repeat(4,25%)
-}
+}*/
+
