@@ -11,6 +11,8 @@ const dealer = document.getElementById('dealer')
 const gamble = document.getElementById('gamble')
 const playerCards = document.getElementById('playingCards')
 
+
+
 //switch background from light to dark
 dL.addEventListener('click', ()=>{
   document.body.classList.toggle('light')
@@ -55,6 +57,7 @@ let cards = [
   'king'
 ]
 
+let hideDealer =['blank']
 let cardDeck = []
 let newDeck = []
 let playerAce =0
@@ -65,6 +68,19 @@ let betValue = 0
 let card
 let hitClicked =0
 let dealerCard=0
+
+
+const dealerHide = ()=>{
+  card=hideDealer[0].toString()
+  console.log(card)
+  const image = document.createElement('img')
+  image.id ="hide"
+    image.setAttribute("src",`./cards/${card}.png`) 
+     display.appendChild(image)
+    
+}
+
+
 
 // set time out to get new hand
 timeOut = ()=>{
@@ -99,14 +115,17 @@ newHand =()=>{
   hitClicked=0
   playerAce=0
   dealerAce=0
+  hideDealer=['blank']
   betButton.style.display= 'unset'
   playButton.style.display= 'unset'
   hitButton.style.display ='none'
  handReset(display)
  handReset(playerCards)
+
  
 
 }
+
 
    //gets value of card to display for Dealer
    const value = (card)=>{
@@ -155,10 +174,27 @@ if (playerAce>0 && playerValue>21){
 
 // show cards
 const showCardsDealer =(card)=>{
-const image = document.createElement('img')
- image.setAttribute("src",`./cards/${card}.png`) 
-  display.appendChild(image)
+  
+    const image = document.createElement('img')
+    image.setAttribute("src",`./cards/${card}.png`) 
+     display.appendChild(image)
+    
   }
+  const dealerNew = ()=>{
+    hideDealer[0]=hideDealer.splice(length-1).toString()
+    card =hideDealer[0]
+    console.log(card)
+    console.log(hideDealer)
+    value(card)
+    let old = document.getElementById('hide')
+    console.log(old)
+    old.setAttribute("src",`./cards/${card}.png`) 
+     display.appendChild(old)
+     display.removeChild(display.lastElementChild)
+    
+   
+  }
+  
 
   const showCardsPlayer =(card)=>{
     const imageNew = document.createElement('img')
@@ -249,7 +285,9 @@ const bet = () => {
       betButton.style.display='none'
       doubleButton.style.display='none'
     }
+    
   })
+ 
 }
 bet()
 
@@ -257,9 +295,13 @@ bet()
 //start game
 const playGame =()=>{
   playButton.addEventListener('click',function (){
+    dealerHide()
     betButton.style.display='none'
     playButton.style.display='none'
+    
     dealerHand() 
+    
+    
   })
 }
 playGame()
@@ -267,11 +309,14 @@ playGame()
 //dealer event handler
 //get dealer card, value,and image
 const dealerHand = () =>{
+ 
   ++dealerCard
   if (newDeck.length===0){
     shuffleCards()
   }
   card = newDeck.pop()
+  hideDealer.push(card)
+  console.log(hideDealer)
 showCardsDealer(card)
  value(card)
 
@@ -330,7 +375,9 @@ const doubleDown = () => {
     //while loop for dealer hand
     while (dealerValue <17){
       dealerHand()
+      
     } 
+    dealerNew()
     playerWins()
     hitButton.style.display ='none'
   })
@@ -352,10 +399,14 @@ const stay = () => {
       dealerValue = " "
     }
     else{
+      
       while (dealerValue <17){
         dealerHand()
+        
         console.log(card)
       } 
+      dealerNew()
+      console.log(hideDealer)
     }
    
     playerWins()
