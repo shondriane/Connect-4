@@ -89,8 +89,8 @@ newHand =()=>{
   dealer.innerText = " "
   player.innerText= " "
   gamble.innerText = " "
-  playerValue =19
-  dealerValue=0
+  playerValue =0
+  dealerValue=19
   betValue =0
   hitClicked=0
   betButton.style.display= 'unset'
@@ -122,34 +122,36 @@ newHand =()=>{
        
       ;`${(dealerValue +=parseInt(cardValue))}`
     }
-    
+    if (dealerAce>0 && dealerValue>21){
+      `${dealerValue-=10}`
+    }
    }
   
-//gets value of card to display for Player
+//gets value of card to display for Player and change value if aces exist
 const valueP =(card)=>{
 cardString = card.toString()
 let split = cardString.split(' ')
 let cardValue = split[0]
-
+ 
 if (cardValue === 'jack' || cardValue === 'king' || cardValue === 'queen') {
   ;`${(playerValue +=10)}`
 } else if (cardValue === 'ace') {
   playerAce++
   `${(playerValue+=11)}`
- 
 }
 else {
-  
   ;`${(playerValue +=parseInt(cardValue))}`
 }
+if (playerAce>0 && playerValue>21){
+  `${playerValue-=10}`
 }
-// show cards
+}
 
+// show cards
 const showCardsDealer =(card)=>{
 const image = document.createElement('img')
  image.setAttribute("src",`./cards/${card}.png`) 
   display.appendChild(image)
-
   }
 
   const showCardsPlayer =(card)=>{
@@ -226,14 +228,6 @@ const shuffleCards = (cardDeck) => {
 }
 shuffleCards(cardDeck)
 
-// see if hand has an ace and change card value (not working!!)
- const aceExist=(item,num)=>{
-
-  if(`${num>21}` && `${item>0}`){
-    `${num-=10}`
-  }
- }
- 
 
 //player place bet
 const bet = () => {
@@ -242,7 +236,7 @@ const bet = () => {
     gamble.innerText = `Your current bet is: $${(betValue += 15)}`  
     //disable bet if money is less than 15
     howmuch()
-    if (money<=15){
+    if (money<15){
       betButton.style.display='none'
       doubleButton.style.display='none'
     }
@@ -262,16 +256,16 @@ const playGame =()=>{
 playGame()
 
 //dealer event handler
-//get dealer card, value,image and check for aces
+//get dealer card, value,and image
 const dealerHand = () =>{
   ++dealerCard
   if (newDeck.length===0){
     shuffleCards()
   }
-  card = newDeck.pop()
+  card = "ace spades"
 showCardsDealer(card)
  value(card)
-//  aceExist(dealerAce,dealerValue)
+
    //display buttons
    hitButton.style.display ='unset'
    //reset dealer text
@@ -281,7 +275,7 @@ showCardsDealer(card)
 
 
 //player Hits event handler
-//get player card, value, image and check for aces
+//get player card, value, and image
 const hit = () => {
   hitButton.addEventListener('click', ()=> {
    ++hitClicked
@@ -289,13 +283,12 @@ const hit = () => {
     shuffleCards()
   }
     betButton.style.display = 'none'
-    card = "ace hearts"
+    card = newDeck.pop()
 showCardsPlayer(card)
 valueP(card)
-aceExist(playerAce,playerValue)
 
 //reset button
-player.innerText = `you have: ${playerValue}`
+player.innerText = `You have: ${playerValue}`
     //button shows up
     doubleButton.style.display = 'unset'
     stayButton.style.display = 'unset'
@@ -308,7 +301,7 @@ hit()
 
 
 //player double down event handler
-// double value of bet, gets one card and set dealer hand
+// double value of bet, gets one card and sets dealer hand
 const doubleDown = () => {
   doubleButton.addEventListener('click', ()=> {
     gamble.innerText = `Your current bet is: $${(betValue+= 15)}`
