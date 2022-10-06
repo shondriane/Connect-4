@@ -7,16 +7,16 @@ body{
    background-size: cover;
    background-attachment:fixed;
    color: white;
-   
+   font-family: 'Playfair Display', serif;
   
 
 }
 
-/* body.light,button{
+ body.light{
     background-color:antiquewhite;
     color:white
     
-} */
+} 
 /*img#picture{
     width:100%;
     position: absolute;
@@ -26,7 +26,7 @@ body{
 section{
    display: grid;
    grid-template-columns: 1fr 2fr;
-   padding: 30px;
+   
    text-align: center;
 }
 h3 {
@@ -51,7 +51,11 @@ div#playingCards,div#dealerCards{
     display:flex;
     flex-direction: row;
     flex-wrap: wrap;
+    
+    
+    
 }
+
 
 /*li#hide{
     display:none;

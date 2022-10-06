@@ -13,11 +13,6 @@ const playerCards = document.getElementById('playingCards')
 
 
 
-//switch background from light to dark
-dL.addEventListener('click', ()=>{
-  document.body.classList.toggle('light')
-})
-
 //Player's current value of money
 let money = 100
 wallet.innerText = `Current chip amount is: $${money}`
@@ -69,7 +64,7 @@ let card
 let hitClicked =0
 let dealerCard=0
 
-
+//hit first card
 const dealerHide = ()=>{
   card=hideDealer[0].toString()
   console.log(card)
@@ -80,9 +75,7 @@ const dealerHide = ()=>{
     
 }
 
-
-
-// set time out to get new hand
+// Restart Game
 timeOut = ()=>{
   setTimeout(newHand,2000)
 }
@@ -121,9 +114,6 @@ newHand =()=>{
   hitButton.style.display ='none'
  handReset(display)
  handReset(playerCards)
-
- 
-
 }
 
 
@@ -133,7 +123,6 @@ newHand =()=>{
     let split = cardString.split(' ')
     let cardValue = split[0]
   
-
     if (cardValue === 'jack' || cardValue === 'king' || cardValue === 'queen') {
     
       `${(dealerValue += 10)}`
@@ -170,6 +159,7 @@ else {
 if (playerAce>0 && playerValue>21){
   `${playerValue-=10}`
 }
+
 }
 
 // show cards
@@ -185,7 +175,6 @@ const showCardsDealer =(card)=>{
     card =hideDealer[0]
     console.log(card)
     console.log(hideDealer)
-    value(card)
     let old = document.getElementById('hide')
     console.log(old)
     old.setAttribute("src",`./cards/${card}.png`) 
@@ -233,7 +222,7 @@ const playerWins =()=>{
     wallet.innerText = `Current chip amount is: $${money+=(betValue*3)}`
   }
 
-  else if (dealerValue ===17 && playerValue <17){
+  else if (dealerValue ===17 && playerValue<17){
     dealer.innerText = "Dealer Won"
     player.innerText = "You Lost"
   }
@@ -264,10 +253,12 @@ fullDeck()
 //iteration to shuffle cards and push into a new Deck
 const shuffleCards = (cardDeck) => {
   let count =52
+  
   while(count){
     newDeck.push(cardDeck.splice(Math.floor(Math.random()*count),1)[0])
     count-=1
   }
+
 }
 shuffleCards(cardDeck)
 
@@ -309,11 +300,11 @@ playGame()
 //dealer event handler
 //get dealer card, value,and image
 const dealerHand = () =>{
- 
-  ++dealerCard
   if (newDeck.length===0){
     shuffleCards()
   }
+  ++dealerCard
+  
   card = newDeck.pop()
   hideDealer.push(card)
   console.log(hideDealer)
@@ -332,6 +323,9 @@ showCardsDealer(card)
 //get player card, value, and image
 const hit = () => {
   hitButton.addEventListener('click', ()=> {
+    if (newDeck.length===0){
+      shuffleCards()
+    }
     betButton.style.display = 'none'
    ++hitClicked
    if (newDeck.length===0){
@@ -402,14 +396,12 @@ const stay = () => {
       
       while (dealerValue <17){
         dealerHand()
-        
-        console.log(card)
       } 
       dealerNew()
-      console.log(hideDealer)
     }
    
     playerWins()
+  
   })
   
 }
