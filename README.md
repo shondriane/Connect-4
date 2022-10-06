@@ -20,8 +20,7 @@ The ultimate strategy game. To win, you must get as close to 21  than the dealer
 ***
 
 ### ***Getting Started***
-To get started, input the amount of money you want to start with.
-click the button get chips to start the game.   
+To get started, click the play button.  
 
 A trello board used to keep track of development progress can be [viewed here](https://trello.com/b/oymK9xYN/connect-four).
 
@@ -33,5 +32,7 @@ The project itself was deployed and can be viewed here.
 
 
 Markdown Guide: ia.net
+
 Shuffle Cards: [https://medium.com/swlh/the-javascript-shuffle-62660df19a5d]
+
 Card Pictures: [https://stock.adobe.com/search?k=full+deck+of+cards&asset]

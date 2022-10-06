@@ -3,13 +3,18 @@ body{
     background-color: darkred;
    margin:5px;
    align-items: center;
-   font: white
-
-   
+  
    
 }
 
-
+body.light,button{
+    background-color:antiquewhite;
+    color: rgb(171, 115, 41)
+    
+}
+img#picture{
+    display:flex;
+}
 section{
    display: grid;
    grid-template-columns: 1fr 2fr;
@@ -17,6 +22,7 @@ section{
    text-align: center;
  
 }
+
 
 button#double,button#stay,button#split, button#hit{
     display:none;

@@ -1,3 +1,4 @@
+const dL = document.getElementById('switch')
 const wallet = document.querySelector('h3')
 const betButton = document.querySelector('#bet')
 const hitButton = document.querySelector('#hit')
@@ -10,7 +11,10 @@ const dealer = document.getElementById('dealer')
 const gamble = document.getElementById('gamble')
 const playerCards = document.getElementById('playingCards')
 
-
+//switch background from light to dark
+dL.addEventListener('click', ()=>{
+  document.body.classList.toggle('light')
+})
 
 //Player's current value of money
 let money = 100
@@ -281,17 +285,21 @@ showCardsDealer(card)
 //get player card, value, and image
 const hit = () => {
   hitButton.addEventListener('click', ()=> {
+    betButton.style.display = 'none'
    ++hitClicked
    if (newDeck.length===0){
     shuffleCards()
   }
-    betButton.style.display = 'none'
+   
     card = newDeck.pop()
 showCardsPlayer(card)
 valueP(card)
 
 //reset button
 player.innerText = `You have: ${playerValue}`
+if (playerValue>=21){
+  hitButton.style.display = 'none'
+}
     //button shows up
     doubleButton.style.display = 'unset'
     stayButton.style.display = 'unset'
