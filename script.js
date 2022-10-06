@@ -318,7 +318,7 @@ const doubleDown = () => {
   
    
     //while loop for dealer hand
-    while (dealerValue <=17 && dealerValue<=21){
+    while (dealerValue <17){
       dealerHand()
     } 
     playerWins()
@@ -342,7 +342,7 @@ const stay = () => {
       dealerValue = " "
     }
     else{
-      while (dealerValue <=17){
+      while (dealerValue <17){
         dealerHand()
         console.log(card)
       } 
