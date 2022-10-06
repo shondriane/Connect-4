@@ -179,8 +179,9 @@ const playerWins =()=>{
     
   }
   else if (playerValue>21){
-    dealer.innerText = "Dealer Won"
+    dealer.innerText = " "
     player.innerText = "You Bust"
+    
   }
   else if (dealerValue ===21 && playerValue<21){
     dealer.innerText = "Dealer Won"
@@ -335,10 +336,18 @@ const stay = () => {
     stayButton.style.display='none'
     hitButton.style.display = 'none'
     doubleButton.style.display = 'none'
-    while (dealerValue <=17 && dealerValue<=21){
-      dealerHand()
-      console.log(card)
-    } 
+    if (playerValue>21){
+      handReset(display)
+      dealer.innerText=" "
+      dealerValue = " "
+    }
+    else{
+      while (dealerValue <=17){
+        dealerHand()
+        console.log(card)
+      } 
+    }
+   
     playerWins()
   })
   

@@ -2,8 +2,13 @@ body{
     
     background-color: darkred;
    margin:5px;
+   align-items: center;
+   font: white
+
+   
    
 }
+
 
 section{
    display: grid;
@@ -18,11 +23,12 @@ button#double,button#stay,button#split, button#hit{
     margin: 10px;
 }
 
-div#playingCards{
+div#playingCards,div#dealerCards{
     display:flex;
     flex-direction: row;
     flex-wrap: wrap;
 }
+
 
 li.hide{
    
