@@ -4,9 +4,9 @@ body{
    margin:15px;
    align-items: center;
    background-image: url('https://drive.google.com/uc?id=1x6s1KtJH5EZNTyLdBxlqp3PhPhDWoJ61');
-   background-size: 115%;
+   background-size: 100%;
    overflow: hidden;
-   background-repeat:no-repeat;
+  background-repeat:no-repeat;
    background-attachment:fixed;
    color: white;
    font-family: 'Playfair Display', serif;

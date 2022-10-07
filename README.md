@@ -8,7 +8,7 @@
 ***
 
 ### ***Description***
-The ultimate strategy game. To win, you must get as close to 21  than the dealer without busting (going over 21).
+The goal is to play black jack and win $500 for a ticket back home. To win, you must get as close to 21  than the dealer without busting (going over 21).
 ***
 
 ### ***Technologies Used***
@@ -24,7 +24,7 @@ To get started, click the play button.
 
 A trello board used to keep track of development progress can be [viewed here](https://trello.com/b/oymK9xYN/connect-four).
 
-The project itself was deployed and can be viewed here.
+The project itself was deployed and can be [viewed here](https://shondrianesblackjack.surge.sh/).
 
 ***
 
@@ -36,7 +36,5 @@ Markdown Guide: ia.net
 Shuffle Cards: [https://medium.com/swlh/the-javascript-shuffle-62660df19a5d]
 
 Card Pictures: [https://stock.adobe.com/search?k=full+deck+of+cards&asset]
-
-darkMode: [https://css-tricks.com/a-complete-guide-to-dark-mode-on-the-web/]
 
 How to create picture files for vs:[https://youtu.be/cLr4_CgWqPM]
