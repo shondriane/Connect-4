@@ -112,6 +112,7 @@ newHand =()=>{
   betButton.style.display= 'unset'
   playButton.style.display= 'unset'
   hitButton.style.display ='none'
+  stayButton.style.display ='none'
  handReset(display)
  handReset(playerCards)
 }
