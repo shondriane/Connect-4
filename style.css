@@ -5,6 +5,7 @@ body{
    align-items: center;
    background-image: url('https://drive.google.com/uc?id=1x6s1KtJH5EZNTyLdBxlqp3PhPhDWoJ61');
    background-size: cover;
+   overflow: hidden;
    background-attachment:fixed;
    color: white;
    font-family: 'Playfair Display', serif;
@@ -23,6 +24,7 @@ section{
 h3 {
     background-color: black;
     display:inline;
+    color:green
 }
 div{
     margin-top: 75px;
@@ -39,11 +41,11 @@ button#double,button#stay,button#hit{
 }
 
 button{
-    display:flex;
+    
     flex-wrap: wrap;
-   justify-content: center;
-    text-align: center;
-    margin: auto;
+    flex-direction:row;
+   justify-content:center;
+   align-items: center;
     border: 10px solid red;
 }
 div#playingCards,div#dealerCards{
