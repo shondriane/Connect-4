@@ -38,3 +38,5 @@ Shuffle Cards: [https://medium.com/swlh/the-javascript-shuffle-62660df19a5d]
 Card Pictures: [https://stock.adobe.com/search?k=full+deck+of+cards&asset]
 
 How to create picture files for vs:[https://youtu.be/cLr4_CgWqPM]
+
+Game Inspiration: [https://www.hardrockworldtour.com/fx/?env=hardrock]

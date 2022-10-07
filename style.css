@@ -25,10 +25,11 @@ section{
 h3 {
     background-color: black;
     display:inline;
-    color:green
+    color:green;
+    border: 10px solid goldenrod;
 }
 div{
-    margin-top: 75px;
+    margin-top: 35px;
     margin-bottom: 0px;
 }
 

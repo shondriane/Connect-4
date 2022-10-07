@@ -18,14 +18,16 @@ wallet.innerText = `Current chip amount is: $${money}`
 //alert to remind player of the initial goal to buy plane tickets
 const howmuch = () => {
   switch (money) {
-    case 400: {
-      alert("You won! If you continue to play it's extra money in the bank")
-    }
-    break;
-    case 200:{
-alert ('you are half way there, you got this!')
-    }
-    break;
+    case 600:
+      {
+        alert("You won! If you continue to play it's extra money in the bank")
+      }
+      break
+    case 300:
+      {
+        alert('you are half way there, you got this!')
+      }
+      break
     case 25:
       alert(
         'you have just enough money to take a bus back home, reconsider catching a flight'
@@ -82,14 +84,14 @@ const dealerHide = () => {
 
 // Restart Game
 timeOut = () => {
-  setTimeout(newHand, 2000)
+  setTimeout(newHand, 2500)
 }
 
 restartGame = () => {
   if (money <= 15) {
     setTimeout(function () {
       location.reload()
-    }, 2000)
+    }, 2500)
     wallet.innerText = 'You had to walk away, Game Over'
   } else timeOut()
 }
@@ -134,8 +136,10 @@ const value = (card) => {
     ;`${(dealerValue += parseInt(cardValue))}`
   }
 
+
   if (dealerAce > 0 && dealerValue > 21) {
     ;`${(dealerValue -= 10)}`
+    
   }
 }
 
