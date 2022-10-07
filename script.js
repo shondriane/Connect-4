@@ -16,7 +16,7 @@ const playerCards = document.getElementById('playingCards')
 //Player's current value of money
 let money = 100
 wallet.innerText = `Current chip amount is: $${money}`
-console.log(wallet.innerText)
+
 
 //alert to remind player of the initial goal to buy plane tickets
 const howmuch =()=>{
@@ -67,7 +67,6 @@ let dealerCard=0
 //hit first card
 const dealerHide = ()=>{
   card=hideDealer[0].toString()
-  console.log(card)
   const image = document.createElement('img')
   image.id ="hide"
     image.setAttribute("src",`./cards/${card}.png`) 
@@ -174,10 +173,7 @@ const showCardsDealer =(card)=>{
   const dealerNew = ()=>{
     hideDealer[0]=hideDealer.splice(length-1).toString()
     card =hideDealer[0]
-    console.log(card)
-    console.log(hideDealer)
     let old = document.getElementById('hide')
-    console.log(old)
     old.setAttribute("src",`./cards/${card}.png`) 
      display.appendChild(old)
      display.removeChild(display.lastElementChild)
@@ -227,7 +223,7 @@ const playerWins =()=>{
     dealer.innerText = "Dealer Won"
     player.innerText = "You Lost"
   }
-  else if (dealerValue > playerValue){
+  else if (dealerValue > playerValue && playerValue<21){
     dealer.innerText = "Dealer Won"
     player.innerText = "You Lost"
   }
@@ -305,10 +301,9 @@ const dealerHand = () =>{
     shuffleCards()
   }
   ++dealerCard
-  
   card = newDeck.pop()
+  cardDeck.push(card)
   hideDealer.push(card)
-  console.log(hideDealer)
 showCardsDealer(card)
  value(card)
 
@@ -323,17 +318,15 @@ showCardsDealer(card)
 //player Hits event handler
 //get player card, value, and image
 const hit = () => {
-  hitButton.addEventListener('click', ()=> {
-    if (newDeck.length===0){
-      shuffleCards()
-    }
-    betButton.style.display = 'none'
-   ++hitClicked
-   if (newDeck.length===0){
+  if (newDeck.length===0){
     shuffleCards()
   }
-   
+  hitButton.addEventListener('click', ()=> {
+  
+    betButton.style.display = 'none'
+   ++hitClicked 
     card = newDeck.pop()
+    cardDeck.push(card)
 showCardsPlayer(card)
 valueP(card)
 
@@ -359,11 +352,10 @@ const doubleDown = () => {
   doubleButton.addEventListener('click', ()=> {
     gamble.innerText = `Current bet amount is: $${(betValue+= 15)}`
     player.innerText = `you have: ${playerValue-=15}`
-    console.log(playerValue)
-    console.log(betValue)
     stayButton.style.display ='none'
     doubleButton.style.display='none'
     card =newDeck.pop()
+    cardDeck.push(card)
     showCardsPlayer(card)
   
    
@@ -385,6 +377,7 @@ doubleDown()
 //all display buttons disappear, get dealer hand and determine winner
 const stay = () => {
   stayButton.addEventListener('click',() =>{
+    console.log(cardDeck)
     stayButton.style.display='none'
     hitButton.style.display = 'none'
     doubleButton.style.display = 'none'
@@ -397,6 +390,9 @@ const stay = () => {
       
       while (dealerValue <17){
         dealerHand()
+        if(dealerValue>21){
+          playerWins()
+        }
       } 
       dealerNew()
     }
@@ -407,3 +403,4 @@ const stay = () => {
   
 }
 stay()
+
