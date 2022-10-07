@@ -134,7 +134,7 @@ const value = (card) => {
     ;`${(dealerValue += parseInt(cardValue))}`
   }
 
-  if (dealerAce > 0 && dealerValue > 22) {
+  if (dealerAce > 0 && dealerValue > 21) {
     ;`${(dealerValue -= 10)}`
   }
 }
@@ -154,7 +154,7 @@ const valueP = (card) => {
     ;`${(playerValue += parseInt(cardValue))}`
   }
 
-  if (playerAce > 0 && playerValue > 22) {
+  if (playerAce > 0 && playerValue > 21) {
     ;`${(playerValue -= 10)}`
   }
 }
@@ -270,6 +270,7 @@ const dealerHand = () => {
 
   ++dealerCard
   card = newDeck.pop()
+  console.log(card)
   cardDeck.push(card)
   hideDealer.push(card)
   showCardsDealer(card)
@@ -340,7 +341,6 @@ doubleDown()
 //all display buttons disappear, get dealer hand and determine winner
 const stay = () => {
   stayButton.addEventListener('click', () => {
-    console.log(cardDeck)
     stayButton.style.display = 'none'
     hitButton.style.display = 'none'
     doubleButton.style.display = 'none'
