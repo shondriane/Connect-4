@@ -139,6 +139,7 @@ const value = (card) => {
 
   if (dealerAce > 0 && dealerValue > 21) {
     ;`${(dealerValue -= 10)}`
+    dealer.innerText=`You have: $${dealerValue}`
     
   }
 }
@@ -160,6 +161,7 @@ const valueP = (card) => {
 
   if (playerAce > 0 && playerValue > 21) {
     ;`${(playerValue -= 10)}`
+    player.innerText=`You have: $${playerValue}`
   }
 }
 
@@ -352,7 +354,7 @@ const stay = () => {
       }
       dealerNew()
     }
-
+hitButton.style.display='none'
     playerWins()
   })
 }
