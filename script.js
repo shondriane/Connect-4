@@ -73,7 +73,7 @@ let card
 let hitClicked = 0
 let dealerCard = 0
 
-//hit first card
+// first card for dealer
 const dealerHide = () => {
   card = hideDealer[0].toString()
   const image = document.createElement('img')
@@ -121,7 +121,7 @@ newHand = () => {
   handReset(playerCards)
 }
 
-//gets value of card to display for Dealer
+//gets value of card to display for Dealer and change value if aces exist
 const value = (card) => {
   cardString = card.toString()
   let split = cardString.split(' ')
@@ -163,7 +163,7 @@ const valueP = (card) => {
   }
 }
 
-// show cards
+// show cards for dealer and flips the last card to the first card
 const showCardsDealer = (card) => {
   const image = document.createElement('img')
   image.setAttribute('src', `./cards/${card}.png`)
@@ -177,7 +177,7 @@ const dealerNew = () => {
   display.appendChild(old)
   display.removeChild(display.lastElementChild)
 }
-
+//show cards for player
 const showCardsPlayer = (card) => {
   const imageNew = document.createElement('img')
   imageNew.setAttribute('src', `./cards/${card}.png`)
@@ -265,13 +265,11 @@ const playGame = () => {
 }
 playGame()
 
-//dealer event handler
-//get dealer card, value,and image
+//dealer event handler, get dealer card, value,and image
 const dealerHand = () => {
   if (newDeck.length === 0) {
     shuffleCards(cardDeck, newDeck)
   }
-
   ++dealerCard
   card = newDeck.pop()
   console.log(card)
@@ -279,15 +277,13 @@ const dealerHand = () => {
   hideDealer.push(card)
   showCardsDealer(card)
   value(card)
-
-  //display buttons
+  //display buttons disappear
   hitButton.style.display = 'unset'
   //reset dealer text
   dealer.innerText = `Dealer's card is: ${dealerValue}`
 }
 
-//player Hits event handler
-//get player card, value, and image
+//player Hits event handler, get player card, value, and image
 const hit = () => {
   hitButton.addEventListener('click', () => {
     if (newDeck.length === 0) {
@@ -299,8 +295,7 @@ const hit = () => {
     cardDeck.push(card)
     showCardsPlayer(card)
     valueP(card)
-
-    //reset button
+    //button disappears if player value is greater than 21
     player.innerText = `You have: ${playerValue}`
     if (playerValue >= 21) {
       hitButton.style.display = 'none'
@@ -329,7 +324,6 @@ const doubleDown = () => {
     card = newDeck.pop()
     cardDeck.push(card)
     showCardsPlayer(card)
-
     //while loop for dealer hand
     while (dealerValue < 17) {
       dealerHand()

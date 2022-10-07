@@ -22,7 +22,7 @@ The goal is to play black jack and win $500 for a ticket back home. To win, you 
 ### ***Getting Started***
 To get started, click the play button.  
 
-A trello board used to keep track of development progress can be [viewed here](https://trello.com/b/oymK9xYN/connect-four).
+A trello board used to keep track of development progress can be [viewed here](https://trello.com/b/aMV0gCup/black-jack).
 
 The project itself was deployed and can be [viewed here](https://shondrianesblackjack.surge.sh/).
 
