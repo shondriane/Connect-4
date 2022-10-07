@@ -11,6 +11,7 @@ const dealer = document.getElementById('dealer')
 const gamble = document.getElementById('gamble')
 const playerCards = document.getElementById('playingCards')
 
+
 //Player's current value of money
 let money = 100
 wallet.innerText = `Current chip amount is: $${money}`
@@ -61,7 +62,7 @@ let cards = [
   'king'
 ]
 
-let hideDealer = ['blank']
+let hideDealer = ['blank', 'ace value']
 let cardDeck = []
 let newDeck = []
 let playerAce = 0
@@ -128,17 +129,17 @@ const value = (card) => {
   let cardValue = split[0]
 
   if (cardValue === 'jack' || cardValue === 'king' || cardValue === 'queen') {
-    ;`${(dealerValue += 10)}`
+   dealerValue += 10
   } else if (cardValue === 'ace') {
     dealerAce++
-    ;`${(dealerValue += 11)}`
+    dealerValue += 11
   } else {
-    ;`${(dealerValue += parseInt(cardValue))}`
+    dealerValue += parseInt(cardValue)
   }
 
 
   if (dealerAce > 0 && dealerValue > 21) {
-    ;`${(dealerValue -= 10)}`
+    dealerValue -= 10
     
   }
 }
@@ -150,16 +151,18 @@ const valueP = (card) => {
   let cardValue = split[0]
 
   if (cardValue === 'jack' || cardValue === 'king' || cardValue === 'queen') {
-    ;`${(playerValue += 10)}`
+    playerValue += 10
   } else if (cardValue === 'ace') {
     playerAce++
-    ;`${(playerValue += 11)}`
+    playerValue += 11
   } else {
-    ;`${(playerValue += parseInt(cardValue))}`
+    playerValue += parseInt(cardValue)
   }
 
   if (playerAce > 0 && playerValue > 21) {
-    ;`${(playerValue -= 10)}`
+  playerValue -= 10
+  console.log(playerValue)
+  player.innerText= `You have: $${playerValue}`
   }
 }
 
