@@ -166,16 +166,16 @@ const valueP = (card) => {
   if (cardValue === 'jack' || cardValue === 'king' || cardValue === 'queen') {
     value = 10
  playerHand[card] = value
- console.log(playerHand)
+
   } else if (cardValue === 'ace') {
     playerAce++
     value = playerValue <= 10 ? 11 : 1
 playerHand[card]= value
-console.log(playerHand)
+
   } else {
     value = parseInt(cardValue)
    playerHand[card]=value
-   console.log(playerHand)
+
   }
   playerValue+= value
 
@@ -301,7 +301,6 @@ const dealerHand = (deakerValue, dealerAce) => {
   }
   ++dealerCard
   card = newDeck.pop()
-  console.log(card)
   cardDeck.push(card)
   hideDealer.push(card)
   showCardsDealer(card)
