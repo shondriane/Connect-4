@@ -31,10 +31,10 @@ section{
 }
 
 h3 {
-    background-color: black;
+    background-color:white;
     display:inline;
     color:green;
-    border: 10px solid gold;
+    border: 10px solid white;
     grid-template-columns: 1fr2fr;
 }
 div{

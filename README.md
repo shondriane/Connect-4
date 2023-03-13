@@ -40,3 +40,5 @@ Card Pictures: [https://stock.adobe.com/search?k=full+deck+of+cards&asset]
 How to create picture files for vs:[https://youtu.be/cLr4_CgWqPM]
 
 Game Inspiration: [https://www.hardrockworldtour.com/fx/?env=hardrock]
+
+Coding Resources: MDN| W3 Schools | CSS-Tricks
