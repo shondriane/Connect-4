@@ -8,7 +8,7 @@
 
 body{
     
-    background-color: black;
+    
    margin: auto 0;
    align-items: center;
    background-image: url('https://drive.google.com/uc?id=1x6s1KtJH5EZNTyLdBxlqp3PhPhDWoJ61');
@@ -79,6 +79,7 @@ div#playingCards,div#dealerCards{
 
 
 img{
-    width: 15%
+    width: 15%;
+ 
 }
 

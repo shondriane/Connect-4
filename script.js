@@ -151,10 +151,11 @@ const value = (card) => {
         dealerValue -= 10; 
         dealerHandCards[key] = 1; 
         dealerAce--; 
+        break;
        } 
      } 
    }
-  return value
+  return dealerValue
 }
 
 //gets value of card to display for Player and change value if aces exist
@@ -177,7 +178,7 @@ playerHand[card]= value
    playerHand[card]=value
 
   }
-  playerValue+= value
+ playerValue+=value
 
   if (playerAce > 0 && playerValue > 21) {
      const playerKeys = Object.keys(playerHand);
@@ -186,10 +187,11 @@ playerHand[card]= value
          playerValue -= 10; 
          playerHand[key] = 1; 
          playerAce--; 
+         break;
         } 
       } 
     }
-  return value
+  return playerValue
 }
 
 // show cards for dealer and flips the last card to the first card
@@ -230,14 +232,14 @@ const playerWins = () => {
     player.innerText = `You have ${playerValue}. Push`
   } else if (dealerValue > 21) {
     dealer.innerText = `Dealer has ${dealerValue}. Dealer Bust`
-    player.innerText = `You have ${playerValue}. You Won: $${betValue * 2}`
+    player.innerText = `You have ${playerValue}. You Won: $${betValue}`
     wallet.innerText = `Current chip amount is: $${(money += betValue * 2)}`
   } else if (dealerValue > playerValue) {
     dealer.innerText = `Dealer has ${dealerValue}. Dealer Won`
     player.innerText = `You have ${playerValue}. You Lost `
   } else {
     dealer.innerText = `Dealer has ${dealerValue}. Dealer Lost`
-    player.innerText = `You have ${playerValue}. You Won: $${betValue * 2}`
+    player.innerText = `You have ${playerValue}. You Won: $${betValue}`
     wallet.innerText = `Current chip amount is: $${(money += betValue * 2)}`
   }
   restartGame()
