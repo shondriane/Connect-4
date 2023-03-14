@@ -73,16 +73,21 @@ button{
     margin-top:75px;
     
 }
-button#play,button#hit{
+button#play{
     background-color: green;
+}
+button#hit{
+    color:white;
+    font-weight: bold;
 }
 
 button#double{
     background-color:gold;
-    color:black
+    color:black;
 }
 button#stay{
 background-color: red;
+color:white
 }
 div#playingCards,div#dealerCards{
     display:flex;

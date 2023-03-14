@@ -199,6 +199,7 @@ const valueP = (card) => {
 const showCardsDealer = (card) => {
   const image = document.createElement('img')
   image.setAttribute('src', `./cards/${card}.png`)
+  image.setAttribute('alt','card')
   display.appendChild(image)
 }
 const dealerNew = () => {
@@ -206,6 +207,7 @@ const dealerNew = () => {
   card = hideDealer[0]
   let old = document.getElementById('hide')
   old.setAttribute('src', `./cards/${card}.png`)
+  old.setAttribute('alt','card')
   display.appendChild(old)
   display.removeChild(display.lastElementChild)
 }
@@ -213,6 +215,7 @@ const dealerNew = () => {
 const showCardsPlayer = (card) => {
   const imageNew = document.createElement('img')
   imageNew.setAttribute('src', `./cards/${card}.png`)
+  imageNew.setAttribute('alt','card')
   playerCards.appendChild(imageNew)
 }
 
