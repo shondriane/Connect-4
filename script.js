@@ -72,8 +72,8 @@ let betValue = 0
 let card
 let hitClicked = 0
 let dealerCard = 0
-let playerHand={}
-let dealerHandCards={}
+let playerHand = {}
+let dealerHandCards = {}
 
 // first card for dealer
 const dealerHide = () => {
@@ -119,6 +119,7 @@ newHand = () => {
   playButton.style.display = 'unset'
   hitButton.style.display = 'none'
   stayButton.style.display = 'none'
+  doubleButton.style.display = 'none'
   handReset(display)
   handReset(playerCards)
 }
@@ -135,7 +136,7 @@ const value = (card) => {
     dealerHandCards[card] = value
   } else if (cardValue === 'ace') {
     dealerAce++
-    value = dealerValue < 10 ? 11 : 1
+    value = dealerValue <= 10 ? 11 : 1
     dealerHandCards[card] = value
   } else {
     value = parseInt(cardValue)
@@ -145,16 +146,17 @@ const value = (card) => {
   dealerValue += value
 
   if (dealerAce > 0 && dealerValue > 21) {
-    const dealerKeys = Object.keys(dealerHandCards);
-    for (let i = 0; i < dealerKeys.length; i++) { const key = dealerKeys[i];
+    const dealerKeys = Object.keys(dealerHandCards)
+    for (let i = 0; i < dealerKeys.length; i++) {
+      const key = dealerKeys[i]
       if (dealerHandCards[key] === 11) {
-        dealerValue -= 10; 
-        dealerHandCards[key] = 1; 
-        dealerAce--; 
-        break;
-       } 
-     } 
-   }
+        dealerValue -= 10
+        dealerHandCards[key] = 1
+        dealerAce--
+        break
+      }
+    }
+  }
   return dealerValue
 }
 
@@ -166,31 +168,30 @@ const valueP = (card) => {
   let value = 0
   if (cardValue === 'jack' || cardValue === 'king' || cardValue === 'queen') {
     value = 10
- playerHand[card] = value
-
+    playerHand[card] = value
   } else if (cardValue === 'ace') {
     playerAce++
     value = playerValue <= 10 ? 11 : 1
-playerHand[card]= value
-
+    playerHand[card] = value
   } else {
     value = parseInt(cardValue)
-   playerHand[card]=value
-
+    playerHand[card] = value
   }
- playerValue+=value
+
+  playerValue += value
 
   if (playerAce > 0 && playerValue > 21) {
-     const playerKeys = Object.keys(playerHand);
-     for (let i = 0; i < playerKeys.length; i++) { const key = playerKeys[i];
-       if (playerHand[key] === 11) {
-         playerValue -= 10; 
-         playerHand[key] = 1; 
-         playerAce--; 
-         break;
-        } 
-      } 
+    const playerKeys = Object.keys(playerHand)
+    for (let i = 0; i < playerKeys.length; i++) {
+      const key = playerKeys[i]
+      if (playerHand[key] === 11) {
+        playerValue -= 10
+        playerHand[key] = 1
+        playerAce--
+        break
+      }
     }
+  }
   return playerValue
 }
 
@@ -242,6 +243,7 @@ const playerWins = () => {
     player.innerText = `You have ${playerValue}. You Won: $${betValue}`
     wallet.innerText = `Current chip amount is: $${(money += betValue * 2)}`
   }
+
   restartGame()
 }
 
@@ -290,11 +292,31 @@ const playGame = () => {
     dealerHide()
     betButton.style.display = 'none'
     playButton.style.display = 'none'
-
     dealerHand()
+    playerFirstHand()
+    playerFirstHand()
   })
 }
 playGame()
+
+const playerFirstHand = () => {
+  betButton.style.display = 'none'
+  ++hitClicked
+  card = newDeck.pop()
+  cardDeck.push(card)
+  showCardsPlayer(card)
+  valueP(card)
+
+  //button disappears if player value is greater than 21
+  player.innerText = `You have: ${playerValue}`
+  if (playerValue >= 21) {
+    hitButton.style.display = 'none'
+  }
+
+  //button shows up
+  doubleButton.style.display = 'unset'
+  stayButton.style.display = 'unset'
+}
 
 //dealer event handler, get dealer card, value,and image
 const dealerHand = (deakerValue, dealerAce) => {
@@ -329,14 +351,15 @@ const hit = () => {
     //button disappears if player value is greater than 21
     player.innerText = `You have: ${playerValue}`
     if (playerValue >= 21) {
-      hitButton.style.display = 'none'
+      doubleButton.style.display = 'none'
+      stayButton.style.display = 'none'
+      playerWins()
     }
+
     //button shows up
     doubleButton.style.display = 'unset'
     stayButton.style.display = 'unset'
-    if (hitClicked > 1) {
-      doubleButton.style.display = 'none'
-    }
+  
   })
 }
 hit()
@@ -349,19 +372,25 @@ const doubleDown = () => {
       shuffleCards(cardDeck, newDeck)
     }
     gamble.innerText = `Current bet amount is: $${(betValue += 15)}`
-    player.innerText = `you have: ${(playerValue -= 15)}`
+    wallet.innerText = `Current chip amount is: $${(money -= 15)}`
+    console.log(betValue)
     stayButton.style.display = 'none'
     doubleButton.style.display = 'none'
     card = newDeck.pop()
     cardDeck.push(card)
     showCardsPlayer(card)
+    valueP(card)
+    player.innerText = `You have: ${playerValue}`
+    playerHand = {}
     //while loop for dealer hand
+    dealerHand()
     while (dealerValue < 17) {
       dealerHand()
     }
+
     dealerNew()
+    dealerHandCards = {}
     playerWins()
-    hitButton.style.display = 'none'
   })
 }
 doubleDown()
@@ -373,17 +402,18 @@ const stay = () => {
     stayButton.style.display = 'none'
     hitButton.style.display = 'none'
     doubleButton.style.display = 'none'
-    playerHand={}
+    playerHand = {}
     if (playerValue > 21) {
       handReset(display)
       dealer.innerText = ' '
       dealerValue = ' '
     } else {
+      dealerHand()
       while (dealerValue < 17) {
         dealerHand()
       }
       dealerNew()
-      dealerHandCards={}
+      dealerHandCards = {}
     }
     hitButton.style.display = 'none'
     playerWins()
