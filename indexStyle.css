@@ -1,34 +1,30 @@
-
-
- html{
-  margin:auto 0;
-  justify-content:center;
-
+html {
+  margin: auto 0;
+  justify-content: center;
 }
 
-body{
-  display:block;
-   background-image: url('https://drive.google.com/uc?id=1x6s1KtJH5EZNTyLdBxlqp3PhPhDWoJ61');
-   background-size:cover;
-   background-attachment:fixed;
-   height:100%;
-   width: 100%;
-   text-align: center;
-   font-family: 'Playfair Display', serif;
- 
+body {
+  display: block;
+  background-image: url('https://drive.google.com/uc?id=1x6s1KtJH5EZNTyLdBxlqp3PhPhDWoJ61');
+  background-size: cover;
+  background-attachment: fixed;
+  height: 100%;
+  width: 100%;
+  text-align: center;
+  font-family: 'Playfair Display', serif;
 }
 
-p{
-   display:flex;
-   background-color: antiquewhite;
-   margin:25% 10% 5% 25%;
-   margin-bottom:5%;
-   padding: 30px;
-   width:50%
+p {
+  display: flex;
+  background-color: antiquewhite;
+  margin: 25% 10% 5% 25%;
+  margin-bottom: 5%;
+  padding: 30px;
+  width: 50%;
 }
- button{
-   color: green;
-   position:center;
-   background-color: antiquewhite;
-   padding: 10px;
- }
+button {
+  color: green;
+  position: center;
+  background-color: antiquewhite;
+  padding: 10px;
+}

@@ -11,12 +11,12 @@ body{
     
    margin: auto 0;
    align-items: center;
-   background-color: green;
+   background-color: darkred;
    background-size: 100%;
    overflow: hidden;
   background-repeat:no-repeat;
    background-attachment:fixed;
-   color: black;
+   color: white;
    font-family: 'Playfair Display', serif;
   
 
@@ -73,7 +73,7 @@ button{
     margin-top:75px;
     
 }
-button#play{
+button#play,button#hit{
     background-color: green;
 }
 button#hit{
@@ -86,7 +86,7 @@ button#double{
     color:black;
 }
 button#stay{
-background-color: red;
+background-color: black;
 color:white
 }
 div#playingCards,div#dealerCards{
