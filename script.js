@@ -353,14 +353,17 @@ const hit = () => {
     if (playerValue >= 21) {
       doubleButton.style.display = 'none'
       stayButton.style.display = 'none'
+      hitButton.style.display='none'
       playerWins()
     }
+    else{
+ //button shows up
+ doubleButton.style.display = 'unset'
+ stayButton.style.display = 'unset'
+}
+    })
 
-    //button shows up
-    doubleButton.style.display = 'unset'
-    stayButton.style.display = 'unset'
-  
-  })
+   
 }
 hit()
 
@@ -376,6 +379,7 @@ const doubleDown = () => {
     console.log(betValue)
     stayButton.style.display = 'none'
     doubleButton.style.display = 'none'
+    hitButton.style.display='none'
     card = newDeck.pop()
     cardDeck.push(card)
     showCardsPlayer(card)

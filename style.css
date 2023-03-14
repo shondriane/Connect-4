@@ -11,12 +11,12 @@ body{
     
    margin: auto 0;
    align-items: center;
-   background-image: url('https://drive.google.com/uc?id=1x6s1KtJH5EZNTyLdBxlqp3PhPhDWoJ61');
+   background-color: green;
    background-size: 100%;
    overflow: hidden;
   background-repeat:no-repeat;
    background-attachment:fixed;
-   color: white;
+   color: black;
    font-family: 'Playfair Display', serif;
   
 
@@ -31,10 +31,10 @@ section{
 }
 
 h3 {
-    background-color:white;
+
     display:inline;
-    color:green;
-    border: 10px solid white;
+    color:gold;
+   
     grid-template-columns: 1fr2fr;
 }
 div{
@@ -67,9 +67,22 @@ button{
     flex-direction:row;
    justify-content:center;
    align-items: center;
-    border: 10px solid red;
+   background-color: black;
+   color:white;
+   padding:.5em;
     margin-top:75px;
     
+}
+button#play,button#hit{
+    background-color: green;
+}
+
+button#double{
+    background-color:gold;
+    color:black
+}
+button#stay{
+background-color: red;
 }
 div#playingCards,div#dealerCards{
     display:flex;
@@ -82,4 +95,3 @@ img{
     width: 15%;
  
 }
-
