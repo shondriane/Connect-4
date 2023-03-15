@@ -86,7 +86,7 @@ const dealerHide = () => {
 
 // Restart Game
 timeOut = () => {
-  setTimeout(newHand, 3500)
+  setTimeout(newHand, 4000)
 }
 
 restartGame = () => {
@@ -319,10 +319,11 @@ const playerFirstHand = () => {
   //button shows up
   doubleButton.style.display = 'unset'
   stayButton.style.display = 'unset'
+  hitButton.style.display='unset'
 }
 
 //dealer event handler, get dealer card, value,and image
-const dealerHand = (deakerValue, dealerAce) => {
+const dealerHand = () => {
   if (newDeck.length === 0) {
     shuffleCards(cardDeck, newDeck)
   }
@@ -332,8 +333,7 @@ const dealerHand = (deakerValue, dealerAce) => {
   hideDealer.push(card)
   showCardsDealer(card)
   value(card)
-  //display buttons disappear
-  hitButton.style.display = 'unset'
+ 
   //reset dealer text
   dealer.innerText = `Dealer's card is: ${dealerValue}`
 }
@@ -377,12 +377,13 @@ const doubleDown = () => {
     if (newDeck.length === 0) {
       shuffleCards(cardDeck, newDeck)
     }
+    hitButton.style.display = 'none'
     gamble.innerText = `Current bet amount is: $${(betValue += 15)}`
     wallet.innerText = `Current chip amount is: $${(money -= 15)}`
     console.log(betValue)
     stayButton.style.display = 'none'
     doubleButton.style.display = 'none'
-    hitButton.style.display='none'
+    
     card = newDeck.pop()
     cardDeck.push(card)
     showCardsPlayer(card)
