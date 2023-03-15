@@ -116,7 +116,7 @@ newHand = () => {
   dealerAce = 0
   hideDealer = ['blank']
   betButton.style.display = 'unset'
-  playButton.style.display = 'unset'
+  playButton.style.display = 'none'
   hitButton.style.display = 'none'
   stayButton.style.display = 'none'
   doubleButton.style.display = 'none'
@@ -199,7 +199,7 @@ const valueP = (card) => {
 const showCardsDealer = (card) => {
   const image = document.createElement('img')
   image.setAttribute('src', `./cards/${card}.png`)
-  image.setAttribute('alt','card')
+  image.setAttribute('alt', 'card')
   display.appendChild(image)
 }
 const dealerNew = () => {
@@ -207,7 +207,7 @@ const dealerNew = () => {
   card = hideDealer[0]
   let old = document.getElementById('hide')
   old.setAttribute('src', `./cards/${card}.png`)
-  old.setAttribute('alt','card')
+  old.setAttribute('alt', 'card')
   display.appendChild(old)
   display.removeChild(display.lastElementChild)
 }
@@ -215,7 +215,7 @@ const dealerNew = () => {
 const showCardsPlayer = (card) => {
   const imageNew = document.createElement('img')
   imageNew.setAttribute('src', `./cards/${card}.png`)
-  imageNew.setAttribute('alt','card')
+  imageNew.setAttribute('alt', 'card')
   playerCards.appendChild(imageNew)
 }
 
@@ -285,6 +285,7 @@ const bet = () => {
       betButton.style.display = 'none'
       doubleButton.style.display = 'none'
     }
+    playButton.style.display = 'unset'
   })
 }
 bet()
@@ -294,7 +295,7 @@ const playGame = () => {
   playButton.addEventListener('click', function () {
     dealerHide()
     betButton.style.display = 'none'
-    playButton.style.display = 'none'
+     playButton.style.display = 'none'
     dealerHand()
     playerFirstHand()
     playerFirstHand()
@@ -319,7 +320,7 @@ const playerFirstHand = () => {
   //button shows up
   doubleButton.style.display = 'unset'
   stayButton.style.display = 'unset'
-  hitButton.style.display='unset'
+  hitButton.style.display = 'unset'
 }
 
 //dealer event handler, get dealer card, value,and image
@@ -333,7 +334,7 @@ const dealerHand = () => {
   hideDealer.push(card)
   showCardsDealer(card)
   value(card)
- 
+
   //reset dealer text
   dealer.innerText = `Dealer's card is: ${dealerValue}`
 }
@@ -356,17 +357,14 @@ const hit = () => {
     if (playerValue >= 21) {
       doubleButton.style.display = 'none'
       stayButton.style.display = 'none'
-      hitButton.style.display='none'
+      hitButton.style.display = 'none'
       playerWins()
+    } else {
+      //button shows up
+      doubleButton.style.display = 'unset'
+      stayButton.style.display = 'unset'
     }
-    else{
- //button shows up
- doubleButton.style.display = 'unset'
- stayButton.style.display = 'unset'
-}
-    })
-
-   
+  })
 }
 hit()
 
@@ -383,7 +381,7 @@ const doubleDown = () => {
     console.log(betValue)
     stayButton.style.display = 'none'
     doubleButton.style.display = 'none'
-    
+
     card = newDeck.pop()
     cardDeck.push(card)
     showCardsPlayer(card)

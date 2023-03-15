@@ -54,7 +54,7 @@ align-items:center
 
 }
 
-button#double,button#stay,button#hit{
+button#double,button#stay,button#hit,button#play{
     display:none;
     margin: 20px;
     margin-top:75px;
