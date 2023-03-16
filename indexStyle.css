@@ -2,7 +2,9 @@ html {
   margin: auto 0;
   justify-content: center;
 }
-
+body.lazy{
+   background-color: darkred
+}
 body {
   display: block;
   background-image: url('https://drive.google.com/uc?id=1x6s1KtJH5EZNTyLdBxlqp3PhPhDWoJ61');
@@ -15,7 +17,7 @@ body {
 }
 
 p {
-  display: flex;
+  /* display: flex; */
   background-color: antiquewhite;
   margin: 25% 10% 5% 25%;
   margin-bottom: 5%;
@@ -27,4 +29,24 @@ button {
   position: center;
   background-color: antiquewhite;
   padding: 10px;
+}
+
+.highlight{
+  top:20px;
+  color:green;
+  text-align: center;
+  line-height:30px;
+  animation: highlight 2s linear infinite;
+}
+
+@keyframes highlight{
+  0%{
+    opacity:0;
+  }
+  50%{
+    opacity:.5;
+  }
+  100%{
+    opacity:1;
+  }
 }

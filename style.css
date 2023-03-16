@@ -11,7 +11,7 @@ body{
     
    margin: auto 0;
    align-items: center;
-   background-color: darkred;
+   background-color:darkred;
    background-image: linear-gradient(to right, black , darkred);
    background-size: 100%;
    overflow: hidden;
